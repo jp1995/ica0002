@@ -1,0 +1,21 @@
+- name: Create account juri
+  ansible.builtin.user:
+    name: juri
+    
+- name: Create account roman
+  ansible.builtin.user:
+    name: roman
+    
+    
+- name: Add ssh keys for juri
+  ansible.posix.authorized_key:
+    user: juri
+    state: present
+    key: https://github.com/hudolejev.keys
+
+- name: Add ssh keys for roman
+  ansible.posix.authorized_key:
+    user: roman
+    state: present
+    key: https://github.com/romankuchin.keys
+
