@@ -8,3 +8,18 @@
   ansible.builtin.copy:
     src: ../files/index.html
     dest: /var/www/html/index.html
+  notify:
+  - Restart nginx
+
+- name: Replace the nginx server configuration file
+  ansible.builtin.copy:
+    src: ../files/default
+    dest: /etc/nginx/sites-enabled/default
+  notify:
+  - Restart nginx
+    
+- name: Start and enable nginx service
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: yes
