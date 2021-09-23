@@ -1,0 +1,32 @@
+- name: Install mysql server and pymysql
+  ansible.builtin.apt:
+    name:
+    - mysql-server
+    - python3-pymysql
+    state: present
+
+- name: Start and enable mysql service
+  ansible.builtin.service:
+    name: mysql
+    state: started
+    enabled: yes
+
+- name: Create a mysql database for agama
+  community.mysql.mysql_db:
+    name: "{{ mysql_database }}"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: Create a mysql user
+  community.mysql.mysql_user:
+    name: "{{ mysql_user }}"
+    password: "{{ mysql_password }}"
+    host: "%"
+    priv: "{{ mysql_database }}.*:ALL"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: Bind mysql server to public interface
+  ansible.builtin.copy:
+    src: ../files/override.cnf
+    dest: /etc/mysql/mysql.conf.d/override.cnf
+  notify:
+    - Restart mysql
