@@ -5,6 +5,12 @@
       - init
     become: yes
 
+  - name: DNS server
+    hosts: dns_servers
+    roles:
+      - bind
+    become: yes
+
   - name: Database server
     hosts: db_servers
     roles:
@@ -17,4 +23,5 @@
       - agama
       - uwsgi
       - nginx
+      - resolved
     become: yes

@@ -26,7 +26,7 @@
 
 - name: Bind mysql server to public interface
   ansible.builtin.copy:
-    src: ../files/override.cnf
+    src: ../templates/override.cnf
     dest: /etc/mysql/mysql.conf.d/override.cnf
   notify:
     - Restart mysql

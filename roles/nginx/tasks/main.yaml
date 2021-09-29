@@ -5,14 +5,14 @@
     
 - name: Replace default nginx index page
   ansible.builtin.copy:
-    src: ../files/index.html
+    src: ../templates/index.html
     dest: /var/www/html/index.html
   notify:
   - Restart nginx
 
 - name: Replace the nginx server configuration file
   ansible.builtin.copy:
-    src: ../files/default
+    src: ../templates/default
     dest: /etc/nginx/sites-enabled/default
   notify:
   - Restart nginx

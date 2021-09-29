@@ -1,10 +1,15 @@
-jp1995-1 ansible_host=193.40.156.86 ansible_port=4922
-jp1995-2 ansible_host=193.40.156.86 ansible_port=17122
+jp1995-1 ansible_port=10422
+jp1995-2 ansible_port=2422
 
 [all:vars]
+ansible_host=193.40.156.86
+ansible_python_interpreter=python3
 ansible_ssh_user=ubuntu
 
 [db_servers]
+jp1995-2
+
+[dns_servers]
 jp1995-2
 
 [web_servers]
