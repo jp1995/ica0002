@@ -1,0 +1,4 @@
+- name: rndc reload
+  ansible.builtin.shell:
+    cmd: rndc reload
+  when: inventory_hostname in groups['dns_servers']

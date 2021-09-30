@@ -1,3 +1,0 @@
-- name: rndc reload
-  ansible.builtin.shell:
-    cmd: rndc reload

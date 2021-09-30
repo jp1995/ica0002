@@ -23,5 +23,10 @@
       - agama
       - uwsgi
       - nginx
-      - resolved
+    become: yes
+
+  - name: finalize
+    hosts: all
+    roles:
+      - dns_resolved
     become: yes
