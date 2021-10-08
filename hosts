@@ -1,5 +1,5 @@
-jp1995-1 ansible_port=19222
-jp1995-2 ansible_port=18822
+jp1995-1 ansible_port=17622
+jp1995-2 ansible_port=10022
 
 [all:vars]
 ansible_host=193.40.156.86
@@ -11,6 +11,9 @@ jp1995-2
 
 [dns_servers]
 jp1995-2
+
+[prometheus]
+jp1995-1
 
 [web_servers]
 jp1995-1

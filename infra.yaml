@@ -22,7 +22,19 @@
     roles:
       - agama
       - uwsgi
+    become: yes
+
+  - name: All servers
+    hosts: all
+    roles:
+      - node_exporter
       - nginx
+    become: yes
+
+  - name: Prometheus
+    hosts: prometheus
+    roles:
+      - prometheus
     become: yes
 
   - name: finalize
