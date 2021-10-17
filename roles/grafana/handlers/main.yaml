@@ -1,0 +1,11 @@
+- name: apt update
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Restart grafana
+  ansible.builtin.service:
+    name: grafana-server
+    state: restarted
+
+- name: set grafana pass
+  ansible.builtin.shell: grafana-cli admin reset-admin-password "{{grafana_pass}}"

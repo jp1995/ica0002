@@ -9,12 +9,14 @@
     hosts: dns_servers
     roles:
       - bind
+      - bind_exporter
     become: yes
 
   - name: Database server
     hosts: db_servers
     roles:
       - mysql
+      - mysql_exporter
     become: yes
 
   - name: Web server
@@ -29,12 +31,19 @@
     roles:
       - node_exporter
       - nginx
+      - nginx_exporter
     become: yes
 
   - name: Prometheus
     hosts: prometheus
     roles:
       - prometheus
+    become: yes
+
+  - name: Grafana
+    hosts: grafana
+    roles:
+      - grafana
     become: yes
 
   - name: finalize

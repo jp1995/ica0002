@@ -1,5 +1,5 @@
-jp1995-1 ansible_port=17622
-jp1995-2 ansible_port=10022
+vm1 ansible_port=2422
+vm2 ansible_port=19822
 
 [all:vars]
 ansible_host=193.40.156.86
@@ -7,13 +7,16 @@ ansible_python_interpreter=python3
 ansible_ssh_user=ubuntu
 
 [db_servers]
-jp1995-2
+vm2
 
 [dns_servers]
-jp1995-2
+vm2
 
 [prometheus]
-jp1995-1
+vm1
+
+[grafana]
+vm2
 
 [web_servers]
-jp1995-1
+vm1

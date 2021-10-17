@@ -20,6 +20,8 @@
   ansible.builtin.template:
     src: ../templates/db.asdf
     dest: /var/cache/bind/db.asdf
+  notify:
+    - Restart bind9
 
 - name: Reference master zone
   ansible.builtin.template:
