@@ -2,6 +2,12 @@
   ansible.builtin.apt:
     name: nginx
     state: present
+
+- name: Start and enable nginx service
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: yes
     
 - name: Replace default nginx index page
   ansible.builtin.copy:
@@ -17,8 +23,3 @@
   notify:
   - Restart nginx
     
-- name: Start and enable nginx service
-  ansible.builtin.service:
-    name: nginx
-    state: started
-    enabled: yes

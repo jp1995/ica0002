@@ -4,12 +4,27 @@
     roles:
       - init
     become: yes
+    tags: init
+
+  - name: Prometheus
+    hosts: prometheus
+    roles:
+      - prometheus
+    become: yes
+    tags: p
 
   - name: DNS server
     hosts: dns_servers
     roles:
       - bind
       - bind_exporter
+    become: yes
+    tags: dns
+
+  - name: dns_resolved
+    hosts: all
+    roles:
+      - dns_resolved
     become: yes
 
   - name: Database server
@@ -18,13 +33,7 @@
       - mysql
       - mysql_exporter
     become: yes
-
-  - name: Web server
-    hosts: web_servers
-    roles:
-      - agama
-      - uwsgi
-    become: yes
+    tags: db
 
   - name: All servers
     hosts: all
@@ -33,11 +42,13 @@
       - nginx
       - nginx_exporter
     become: yes
+    tags: nginx
 
-  - name: Prometheus
-    hosts: prometheus
+  - name: Web server
+    hosts: web_servers
     roles:
-      - prometheus
+      - agama
+      - uwsgi
     become: yes
 
   - name: Grafana
@@ -45,9 +56,4 @@
     roles:
       - grafana
     become: yes
-
-  - name: finalize
-    hosts: all
-    roles:
-      - dns_resolved
-    become: yes
+    tags: g

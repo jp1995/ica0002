@@ -1,5 +1,5 @@
-vm1 ansible_port=2422
-vm2 ansible_port=19822
+vm1 ansible_port=1622
+vm2 ansible_port=17122
 
 [all:vars]
 ansible_host=193.40.156.86

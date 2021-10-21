@@ -2,6 +2,7 @@
   ansible.builtin.service:
     name: prometheus-nginx-exporter
     state: restarted
+  when: install.changed
 
 - name: Restart nginx
   ansible.builtin.service:
