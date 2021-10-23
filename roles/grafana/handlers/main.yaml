@@ -9,5 +9,5 @@
 
 - name: set grafana pass
   ansible.builtin.shell: |
-    sleep 10
+    sleep 30
     sudo grafana-cli admin reset-admin-password "{{grafana_pass}}"

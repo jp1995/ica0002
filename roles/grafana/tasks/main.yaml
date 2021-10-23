@@ -33,21 +33,28 @@
   notify:
     - Restart grafana
 
-- name: Add dashboard json file
+- name: Add main dashboard json file
   ansible.builtin.copy:
     src: ../files/main.json
     dest: /var/lib/grafana/dashboards/
   notify:
     - Restart grafana
 
-- name: Add datasource file
+- name: Add syslog dashboard json file
+  ansible.builtin.copy:
+    src: ../files/syslog.json
+    dest: /var/lib/grafana/dashboards/
+  notify:
+    - Restart grafana
+
+- name: Add datasource config
   ansible.builtin.template:
     src: ../templates/main_datasource.yaml
     dest: /etc/grafana/provisioning/datasources/
   notify:
     - Restart grafana
 
-- name: Add dashboard file
+- name: Add dashboard config
   ansible.builtin.template:
     src: ../templates/main_dashboard.yaml
     dest: /etc/grafana/provisioning/dashboards/

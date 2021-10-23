@@ -1,0 +1,41 @@
+- name: Add influxdb key
+  ansible.builtin.apt_key:
+    url: https://repos.influxdata.com/influxdb.key
+
+- name: Add influxdb repo
+  ansible.builtin.apt_repository:
+    repo: deb https://repos.influxdata.com/ubuntu groovy stable
+  notify:
+    - apt update
+
+- name: Install influxdb and telegraf
+  ansible.builtin.apt:
+    pkg:
+      - influxdb
+      - telegraf
+
+- name: Start and enable influxdb service
+  ansible.builtin.service:
+    name: influxdb
+    state: started
+    enabled: yes
+
+- name: Create influxdb config file
+  ansible.builtin.template:
+    src: ../templates/influxdb.conf
+    dest: /etc/influxdb/influxdb.conf
+  notify:
+    - Restart influxdb
+
+- name: Start and enable telegraf service
+  ansible.builtin.service:
+    name: telegraf
+    state: started
+    enabled: yes
+
+- name: Create telegraph config file
+  ansible.builtin.template:
+    src: ../templates/telegraf.conf
+    dest: /etc/telegraf/telegraf.conf
+  notify:
+    - Restart telegraf

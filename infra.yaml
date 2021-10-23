@@ -56,4 +56,26 @@
     roles:
       - grafana
     become: yes
-    tags: g
+    tags: grafana
+
+  - name: influxdb
+    hosts: influxdb
+    roles:
+      - influxdb
+      - influxdb_exporter
+    become: yes
+    tags: influx
+
+  - name: pinger
+    hosts: pinger
+    roles:
+      - pinger
+    become: yes
+    tags: pinger
+
+  - name: rsyslog
+    hosts: all
+    roles:
+      - rsyslog
+    become: yes
+    tags: rsyslog

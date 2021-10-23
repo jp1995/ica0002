@@ -37,3 +37,5 @@ forwarders:
 
 startup_name: asdf.xyz
 
+influxdb_host: vm1
+
