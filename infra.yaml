@@ -3,6 +3,7 @@
     hosts: all
     roles:
       - init
+      - backup
     become: yes
     tags: init
 
