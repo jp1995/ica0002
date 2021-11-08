@@ -39,3 +39,4 @@ startup_name: asdf.xyz
 
 influxdb_host: vm1
 
+backup_server: 192.168.42.156
