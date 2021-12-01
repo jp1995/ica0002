@@ -14,7 +14,11 @@ The Ansible configuration (https://github.com/jp1995/ica0002) is also backed up 
 ### Backup RPO
 <!--- Recovery Point Objective - How often are backups done -->
 
-Under 24 hour data loss is considered acceptable. Backups are done once every day, at 01:00 am.
+Under 24 hour data loss is considered acceptable.
+
+SQLdump is done once every day, at 00:30 am UTC.
+Full backups are done every sunday at 00:40 am UTC.
+Incremental backups are done every other day (Monday - Saturday) at 00:40 UTC.
 
 ### Versioning and retention
 <!--- How many backup versions are stored and for how long
