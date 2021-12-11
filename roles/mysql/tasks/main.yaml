@@ -29,8 +29,42 @@
     - Restart mysql
 
 - name: Bind mysql server to public interface
-  ansible.builtin.copy:
-    src: ../templates/override.cnf
+  ansible.builtin.template:
+    src: ../templates/override.cnf.j2
     dest: /etc/mysql/mysql.conf.d/override.cnf
   notify:
     - Restart mysql
+
+- name: Create a mysql user replication
+  community.mysql.mysql_user:
+    name: "{{ mysql_replication_user }}"
+    password: "{{ mysql_replication_pass }}"
+    host: "%"
+    priv: "*.*:REPLICATION SLAVE"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  notify:
+    - Restart mysql
+
+- name: MySQL replica read only mode ON
+  community.mysql.mysql_variables:
+    variable: read_only
+    value: 'ON'
+    mode: persist
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  when: inventory_hostname != mysql_host
+  notify:
+    - Reset MySQL source
+    - Reset MySQL replica
+  tags: mx
+
+- name: MySQL replica read only mode OFF
+  community.mysql.mysql_variables:
+    variable: read_only
+    value: 'OFF'
+    mode: persist
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  when: inventory_hostname == mysql_host
+  notify:
+    - Reset MySQL source
+    - Reset MySQL replica
+  tags: mx

@@ -7,7 +7,7 @@
 
 - name: Create a mysql user backup
   community.mysql.mysql_user:
-    name: backup
+    name: "{{ mysql_backup_user }}"
     password: "{{ mysql_backup_pass }}"
     host: "%"
     priv: "{{ mysql_database }}.*:SELECT,LOCK TABLES"
@@ -25,5 +25,6 @@
 
 - name: Create cron tab for creating backups
   ansible.builtin.template:
-    src: ../templates/mysql-backup
+    src: ../templates/mysql-backup.j2
     dest: /etc/cron.d/mysql-backup
+  tags: mx
