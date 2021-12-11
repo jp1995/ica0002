@@ -1,4 +1,4 @@
-mysql_host: vm1
+mysql_host: vm2
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -49,6 +49,7 @@ grafana_pass: !vault |
 networks:
  - 192.168.42.0/24
  - 127.0.0.0/8
+ - 172.17.0.0/16
 
 forwarders:
  - 1.1.1.1
@@ -64,3 +65,5 @@ influxdb_host: vm1
 
 backup_server: 192.168.42.156
 backup_server_ssh_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBSne71MCp6CQCHURWe3CLud6vPDkLfL83Oab/giAI7O
+
+grafana_port: 3000

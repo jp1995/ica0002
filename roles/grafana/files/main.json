@@ -194,7 +194,7 @@
       "options": {
         "colorMode": "value",
         "graphMode": "area",
-        "justifyMode": "auto",
+        "justifyMode": "center",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -204,21 +204,34 @@
           "values": false
         },
         "text": {
-          "titleSize": 1
+          "titleSize": 20
         },
         "textMode": "auto"
       },
       "pluginVersion": "8.3.2",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "mysql_up",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
       "title": "MySQL",
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": ":9104",
+            "renamePattern": ""
+          }
+        }
+      ],
       "type": "stat"
     },
     {
@@ -268,7 +281,7 @@
       "options": {
         "colorMode": "value",
         "graphMode": "area",
-        "justifyMode": "auto",
+        "justifyMode": "center",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -278,21 +291,34 @@
           "values": false
         },
         "text": {
-          "titleSize": 1
+          "titleSize": 20
         },
-        "textMode": "auto"
+        "textMode": "value_and_name"
       },
       "pluginVersion": "8.3.2",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "influxdb_exporter_stats_query_success",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
       "title": "InfluxDB",
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": ":9424",
+            "renamePattern": ""
+          }
+        }
+      ],
       "type": "stat"
     },
     {
@@ -342,7 +368,7 @@
       "options": {
         "colorMode": "value",
         "graphMode": "area",
-        "justifyMode": "auto",
+        "justifyMode": "center",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -352,21 +378,34 @@
           "values": false
         },
         "text": {
-          "titleSize": 1
+          "titleSize": 20
         },
-        "textMode": "auto"
+        "textMode": "value_and_name"
       },
       "pluginVersion": "8.3.2",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "bind_up",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
       "title": "Bind9",
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": ":9119",
+            "renamePattern": ""
+          }
+        }
+      ],
       "type": "stat"
     },
     {
@@ -446,11 +485,20 @@
           "exemplar": true,
           "expr": "rate(mysql_global_status_commands_total{command=\"select\"}[1m])",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
       "title": "MySQL Select commands / minute",
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": ":9104",
+            "renamePattern": ""
+          }
+        }
+      ],
       "type": "timeseries"
     },
     {
@@ -530,11 +578,20 @@
           "exemplar": true,
           "expr": "rate(nginx_http_requests_total[1m])",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
       "title": "Nginx requests / minute",
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": ":9113",
+            "renamePattern": ""
+          }
+        }
+      ],
       "type": "timeseries"
     },
     {
@@ -586,7 +643,32 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "vm2"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 9,
@@ -612,13 +694,22 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "rate(bind_resolver_queries_total{type=\"A\"}[1m])",
+          "expr": "rate(bind_resolver_queries_total{type=\"A\"}[1m])*100",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
       "title": "A queries / minute",
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": ":9119",
+            "renamePattern": ""
+          }
+        }
+      ],
       "type": "timeseries"
     },
     {
@@ -670,32 +761,7 @@
             ]
           }
         },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "influxdb_write_write_ok{instance=\"vm1:9424\", job=\"influxdb\"}"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
@@ -716,14 +782,29 @@
       },
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
-          "expr": "influxdb_write_write_ok",
+          "expr": "rate(influxdb_write_write_ok[1m])",
+          "format": "time_series",
           "interval": "",
-          "legendFormat": "",
+          "intervalFactor": 1,
+          "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
       "title": "InfluxDB Write Rate",
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": ":9424",
+            "renamePattern": ""
+          }
+        }
+      ],
       "type": "timeseries"
     },
     {
@@ -799,14 +880,27 @@
       },
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "(node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / 1000000",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
       "title": "Memory Usage (In MB)",
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": ":9100",
+            "renamePattern": ""
+          }
+        }
+      ],
       "type": "timeseries"
     },
     {
@@ -889,15 +983,24 @@
           "exemplar": true,
           "expr": "100 - (avg by (instance) (irate(node_cpu_seconds_total{job=\"linux\",mode=\"idle\"}[5m])) * 100)",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
       "title": "CPU load",
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": ":9100",
+            "renamePattern": ""
+          }
+        }
+      ],
       "type": "timeseries"
     }
   ],
-  "refresh": false,
+  "refresh": "5s",
   "schemaVersion": 33,
   "style": "dark",
   "tags": [],
@@ -905,7 +1008,7 @@
     "list": []
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {},

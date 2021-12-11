@@ -35,6 +35,9 @@
   notify:
     - Restart mysql
 
+- name: Flush handlers
+  meta: flush_handlers
+
 - name: Create a mysql user replication
   community.mysql.mysql_user:
     name: "{{ mysql_replication_user }}"

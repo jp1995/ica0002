@@ -1,13 +1,9 @@
-- name: apt update
-  ansible.builtin.apt:
-    update_cache: yes
-
-- name: Restart grafana
-  ansible.builtin.service:
-    name: grafana-server
-    state: restarted
-
-- name: set grafana pass
-  ansible.builtin.shell: |
-    sleep 30
-    sudo grafana-cli admin reset-admin-password "{{grafana_pass}}"
+- name: Restart grafana docker container
+  community.docker.docker_container:
+    name: grafana
+    image: grafana/grafana
+    state: started
+    restart: yes
+    published_ports: "{{ grafana_port }}:3000"
+    volumes: /opt/grafana:/etc/grafana
+    container_default_behavior: no_defaults

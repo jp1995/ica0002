@@ -27,6 +27,7 @@
     roles:
       - dns_resolved
     become: yes
+    tags: dns
 
   - name: Database server
     hosts: db_servers
@@ -49,13 +50,15 @@
   - name: Web server
     hosts: web_servers
     roles:
+      - docker
       - agama
-      - uwsgi
     become: yes
+    tags: web
 
   - name: Grafana
     hosts: grafana
     roles:
+      - docker
       - grafana
     become: yes
     tags: grafana

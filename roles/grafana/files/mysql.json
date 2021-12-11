@@ -623,7 +623,7 @@
           "exemplar": true,
           "expr": "rate(mysql_global_status_commands_total{command=\"select\"}[1m])",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{instance}}, '{{command}}'",
           "refId": "A"
         },
         {
@@ -635,7 +635,7 @@
           "expr": "rate(mysql_global_status_commands_total{command=\"update\"}[1m])",
           "hide": false,
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{instance}}, '{{command}}'",
           "refId": "B"
         },
         {
@@ -647,14 +647,24 @@
           "expr": "rate(mysql_global_status_commands_total{command=\"show_status\"}[1m])",
           "hide": false,
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{instance}}, '{{command}}'",
           "refId": "C"
         }
       ],
       "title": "MySQL Select commands / minute",
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": ":9104",
+            "renamePattern": ""
+          }
+        }
+      ],
       "type": "timeseries"
     }
   ],
+  "refresh": "5s",
   "schemaVersion": 33,
   "style": "dark",
   "tags": [],
@@ -669,6 +679,6 @@
   "timezone": "",
   "title": "MySQL",
   "uid": "7z7XbL2nk",
-  "version": 7,
+  "version": 1,
   "weekStart": ""
 }
