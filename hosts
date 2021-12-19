@@ -26,5 +26,6 @@ vm2
 [influxdb]
 vm1
 
+
 [pinger]
 vm1
