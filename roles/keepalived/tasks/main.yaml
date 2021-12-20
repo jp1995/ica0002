@@ -1,3 +1,7 @@
+- name: Create keepalived_script user
+  ansible.builtin.user:
+    name: keepalived_script
+
 - name: Install keepalived
   ansible.builtin.apt:
     name: keepalived
@@ -11,6 +15,32 @@
 
 - name: keepalived configuration
   ansible.builtin.template:
-    src: ../templates/keepalived.conf
+    src: ../templates/keepalived.conf.j2
     dest: /etc/keepalived/keepalived.conf
   notify: restart keepalived
+
+- name: check haproxy script
+  ansible.builtin.template:
+    src: ../templates/check_haproxy.j2
+    dest: /home/keepalived_script/check_haproxy
+    mode: '755'
+
+- name: unarchive keepalived-exporter
+  ansible.builtin.unarchive:
+    src: http://backup/keepalived-exporter-1.2.0.linux-amd64.tar.gz
+    dest: /usr/local/bin
+    remote_src: yes
+
+- name: Copy keepalived-exporter service
+  ansible.builtin.template:
+    src: ../templates/keepalived-exporter.service
+    dest: /etc/systemd/system/keepalived-exporter.service
+    owner: root
+  notify:
+    - Daemon reload
+
+- name: Start and enable keepalived-exporter service
+  ansible.builtin.service:
+    name: keepalived-exporter
+    state: started
+    enabled: yes

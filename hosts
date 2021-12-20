@@ -1,5 +1,5 @@
-vm1 ansible_port=16422
-vm2 ansible_port=2022
+vm1 ansible_port=19222
+vm2 ansible_port=11222
 
 [all:vars]
 ansible_host=193.40.156.86
@@ -25,7 +25,6 @@ vm2
 
 [influxdb]
 vm1
-
 
 [pinger]
 vm1

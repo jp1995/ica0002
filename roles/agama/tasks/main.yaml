@@ -14,21 +14,14 @@
     source: build
     build:
       path: /opt/agama
-
-- name: agama docker container
+      
+- name: Create two agama docker containers
   community.docker.docker_container:
     container_default_behavior: no_defaults
-    name: agama_1
+    name: "agama_{{ item }}"
     image: agama
-    published_ports: "8001:8000"
+    published_ports: "{{ agama_port + item|int }}:8000"
     env:
       AGAMA_DATABASE_URI: mysql+pymysql://{{ mysql_user }}:{{ mysql_password }}@{{ mysql_host }}/{{ mysql_database }}
-
-- name: agama docker container
-  community.docker.docker_container:
-    container_default_behavior: no_defaults
-    name: agama_2
-    image: agama
-    published_ports: "8002:8000"
-    env:
-      AGAMA_DATABASE_URI: mysql+pymysql://{{ mysql_user }}:{{ mysql_password }}@{{ mysql_host }}/{{ mysql_database }}
+  no_log: true
+  with_sequence: start=1 end=2

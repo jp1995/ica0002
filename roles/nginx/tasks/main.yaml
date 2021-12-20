@@ -3,6 +3,13 @@
     name: nginx
     state: present
 
+- name: Replace the nginx server configuration file
+  ansible.builtin.template:
+    src: ../templates/default.j2
+    dest: /etc/nginx/sites-enabled/default
+  notify:
+  - Restart nginx
+
 - name: Start and enable nginx service
   ansible.builtin.service:
     name: nginx
@@ -16,10 +23,3 @@
   notify:
   - Restart nginx
 
-- name: Replace the nginx server configuration file
-  ansible.builtin.template:
-    src: ../templates/default.j2
-    dest: /etc/nginx/sites-enabled/default
-  notify:
-  - Restart nginx
-    
