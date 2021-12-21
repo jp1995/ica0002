@@ -2,3 +2,8 @@
   ansible.builtin.service:
     name: bind9
     state: restarted
+
+- name: rndc reload
+  ansible.builtin.shell:
+    cmd: rndc reload
+  when: inventory_hostname in groups['dns_servers']

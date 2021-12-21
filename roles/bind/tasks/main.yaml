@@ -3,6 +3,11 @@
     name: bind9
     state: present
 
+- name: install python3-dnspython
+  ansible.builtin.apt:
+    name: python3-dnspython
+    state: present
+
 - name: Start and enable bind9 service
   ansible.builtin.service:
     name: bind9
@@ -18,11 +23,24 @@
   - Restart bind9
 
 - name: Configure DNS master zone
+  when: inventory_hostname in groups['dns_masters']
   ansible.builtin.template:
     src: ../templates/db.asdf
-    dest: /var/cache/bind/db.asdf
+    dest: /var/cache/bind/db.{{ startup_domain }}
+    force: no
   notify:
     - Restart bind9
+    - rndc reload
+
+- name: Configure reverse zone
+  when: inventory_hostname in groups['dns_masters']
+  ansible.builtin.template:
+    src: ../templates/db.asdf.reverse
+    dest: /var/cache/bind/db.{{ startup_domain }}.reverse
+    #force: no
+  notify:
+    - Restart bind9
+    - rndc reload
 
 - name: Reference master zone
   ansible.builtin.template:

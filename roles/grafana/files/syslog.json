@@ -23,8 +23,7 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 12433,
   "graphTooltip": 0,
-  "id": 2,
-  "iteration": 1635014198891,
+  "iteration": 1640055976528,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -33,7 +32,10 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB-telegraf",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "PC61D9CAFA4D33E15"
+      },
       "decimals": 0,
       "fill": 1,
       "fillGradient": 0,
@@ -54,8 +56,6 @@
         "min": false,
         "rightSide": true,
         "show": true,
-        "sort": null,
-        "sortDesc": null,
         "total": true,
         "values": true
       },
@@ -67,7 +67,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.2.2",
+      "pluginVersion": "8.3.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -114,6 +114,10 @@
       "targets": [
         {
           "alias": "Info",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "PC61D9CAFA4D33E15"
+          },
           "groupBy": [
             {
               "params": [
@@ -131,6 +135,8 @@
           "measurement": "syslog",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT count(\"severity_code\") FROM \"syslog\" WHERE (\"severity\" = 'info' AND \"hostname\" =~ /^$hostname$/ AND \"severity\" =~ /^$severity$/ AND \"appname\" =~ /^$appname$/ AND \"message\" =~ /$Query/) AND $timeFilter GROUP BY time(1m) fill(null)",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -178,414 +184,10 @@
               "value": "/$Query/"
             }
           ]
-        },
-        {
-          "alias": "Notice",
-          "groupBy": [
-            {
-              "params": [
-                "1m"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "syslog",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "severity_code"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "count"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "severity",
-              "operator": "=",
-              "value": "notice"
-            },
-            {
-              "condition": "AND",
-              "key": "hostname",
-              "operator": "=~",
-              "value": "/^$hostname$/"
-            },
-            {
-              "condition": "AND",
-              "key": "severity",
-              "operator": "=~",
-              "value": "/^$severity$/"
-            },
-            {
-              "condition": "AND",
-              "key": "appname",
-              "operator": "=~",
-              "value": "/^$appname$/"
-            },
-            {
-              "condition": "AND",
-              "key": "message",
-              "operator": "=~",
-              "value": "/$Query/"
-            }
-          ]
-        },
-        {
-          "alias": "Warning",
-          "groupBy": [
-            {
-              "params": [
-                "1m"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "syslog",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "D",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "severity_code"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "count"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "severity",
-              "operator": "=",
-              "value": "warning"
-            },
-            {
-              "condition": "AND",
-              "key": "hostname",
-              "operator": "=~",
-              "value": "/^$hostname$/"
-            },
-            {
-              "condition": "AND",
-              "key": "severity",
-              "operator": "=~",
-              "value": "/^$severity$/"
-            },
-            {
-              "condition": "AND",
-              "key": "appname",
-              "operator": "=~",
-              "value": "/^$appname$/"
-            },
-            {
-              "condition": "AND",
-              "key": "message",
-              "operator": "=~",
-              "value": "/$Query/"
-            }
-          ]
-        },
-        {
-          "alias": "Error",
-          "groupBy": [
-            {
-              "params": [
-                "1m"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "syslog",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "C",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "severity_code"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "count"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "severity",
-              "operator": "=",
-              "value": "err"
-            },
-            {
-              "condition": "AND",
-              "key": "hostname",
-              "operator": "=~",
-              "value": "/^$hostname$/"
-            },
-            {
-              "condition": "AND",
-              "key": "severity",
-              "operator": "=~",
-              "value": "/^$severity$/"
-            },
-            {
-              "condition": "AND",
-              "key": "appname",
-              "operator": "=~",
-              "value": "/^$appname$/"
-            },
-            {
-              "condition": "AND",
-              "key": "message",
-              "operator": "=~",
-              "value": "/$Query/"
-            }
-          ]
-        },
-        {
-          "alias": "Critical",
-          "groupBy": [
-            {
-              "params": [
-                "1m"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "syslog",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "E",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "severity_code"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "count"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "severity",
-              "operator": "=",
-              "value": "crit"
-            },
-            {
-              "condition": "AND",
-              "key": "hostname",
-              "operator": "=~",
-              "value": "/^$hostname$/"
-            },
-            {
-              "condition": "AND",
-              "key": "severity",
-              "operator": "=~",
-              "value": "/^$severity$/"
-            },
-            {
-              "condition": "AND",
-              "key": "appname",
-              "operator": "=~",
-              "value": "/^$appname$/"
-            },
-            {
-              "condition": "AND",
-              "key": "message",
-              "operator": "=~",
-              "value": "/$Query/"
-            }
-          ]
-        },
-        {
-          "alias": "Alert",
-          "groupBy": [
-            {
-              "params": [
-                "1m"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "syslog",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "F",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "severity_code"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "count"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "severity",
-              "operator": "=",
-              "value": "alert"
-            },
-            {
-              "condition": "AND",
-              "key": "hostname",
-              "operator": "=~",
-              "value": "/^$hostname$/"
-            },
-            {
-              "condition": "AND",
-              "key": "severity",
-              "operator": "=~",
-              "value": "/^$severity$/"
-            },
-            {
-              "condition": "AND",
-              "key": "appname",
-              "operator": "=~",
-              "value": "/^$appname$/"
-            },
-            {
-              "condition": "AND",
-              "key": "message",
-              "operator": "=~",
-              "value": "/$Query/"
-            }
-          ]
-        },
-        {
-          "alias": "Emergency",
-          "groupBy": [
-            {
-              "params": [
-                "1m"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "syslog",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "G",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "severity_code"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "count"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "severity",
-              "operator": "=",
-              "value": "emerg"
-            },
-            {
-              "condition": "AND",
-              "key": "hostname",
-              "operator": "=~",
-              "value": "/^$hostname$/"
-            },
-            {
-              "condition": "AND",
-              "key": "severity",
-              "operator": "=~",
-              "value": "/^$severity$/"
-            },
-            {
-              "condition": "AND",
-              "key": "appname",
-              "operator": "=~",
-              "value": "/^$appname$/"
-            },
-            {
-              "condition": "AND",
-              "key": "message",
-              "operator": "=~",
-              "value": "/$Query/"
-            }
-          ]
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "syslog count",
       "tooltip": {
         "shared": true,
@@ -594,9 +196,7 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -606,26 +206,23 @@
           "format": "none",
           "label": "Messages / min",
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": false
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
-      "datasource": "InfluxDB-telegraf",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "PC61D9CAFA4D33E15"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -769,6 +366,13 @@
       },
       "id": 12,
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "showHeader": true,
         "sortBy": [
           {
@@ -777,7 +381,7 @@
           }
         ]
       },
-      "pluginVersion": "8.2.2",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
           "groupBy": [
@@ -844,14 +448,12 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Syslog Messages",
       "type": "table"
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 31,
+  "schemaVersion": 34,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -863,10 +465,11 @@
           "text": "All",
           "value": "$__all"
         },
-        "datasource": "InfluxDB-telegraf",
+        "datasource": {
+          "type": "influxdb",
+          "uid": "PC61D9CAFA4D33E15"
+        },
         "definition": "SHOW TAG VALUES FROM syslog WITH KEY=appname",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Appname",
@@ -890,10 +493,11 @@
           "text": "All",
           "value": "$__all"
         },
-        "datasource": "InfluxDB-telegraf",
+        "datasource": {
+          "type": "influxdb",
+          "uid": "PC61D9CAFA4D33E15"
+        },
         "definition": "SHOW TAG VALUES FROM syslog WITH KEY=hostname",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Hostname",
@@ -917,10 +521,11 @@
           "text": "All",
           "value": "$__all"
         },
-        "datasource": "InfluxDB-telegraf",
+        "datasource": {
+          "type": "influxdb",
+          "uid": "PC61D9CAFA4D33E15"
+        },
         "definition": "SHOW TAG VALUES FROM syslog WITH KEY=severity",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Severity",
@@ -944,7 +549,6 @@
           "value": ""
         },
         "description": "Querystring",
-        "error": null,
         "hide": 0,
         "label": "MessageQuery",
         "name": "Query",
@@ -988,5 +592,6 @@
   "timezone": "",
   "title": "Syslog",
   "uid": "TIYeHqRgZ",
-  "version": 2
+  "version": 1,
+  "weekStart": ""
 }

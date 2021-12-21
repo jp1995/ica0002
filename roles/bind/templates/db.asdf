@@ -1,5 +1,5 @@
 $TTL	604800
-{{ startup_name }}.	IN	SOA	vm1.{{ startup_name }}. johan.{{ startup_name }}. (
+{{ startup_name }}.	IN	SOA	vm2.{{ startup_name }}. johan.{{ startup_name }}. (
 			      2		; Serial
 			 604800		; Refresh
 			  86400		; Retry

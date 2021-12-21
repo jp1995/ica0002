@@ -5,6 +5,7 @@
       - init
       - backup
     become: yes
+    gather_facts: yes
     tags: init
 
   - name: Prometheus
@@ -20,6 +21,7 @@
       - bind
       - bind_exporter
     become: yes
+    gather_facts: yes
     tags: dns
 
   - name: dns_resolved
@@ -28,6 +30,13 @@
       - dns_resolved
     become: yes
     tags: dns
+
+  - name: dns_records
+    hosts: dns_masters
+    roles:
+      - dns_records
+    become: yes
+    tags: rec
 
   - name: Database server
     hosts: db_servers

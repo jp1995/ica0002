@@ -29,8 +29,10 @@ listen ha_frontend
     stats enable
     stats uri /stats
 
+{% set counter = [] %}
 {% for vm in groups['web_servers'] %}
 {% for i in range(nginx_container_per_vm) %}
-    server {{vm}}_s{{ i+1 }} {{ vm }}:{{ agama_port + loop.index }} check
+    {% set _ = counter.append(1) %}
+    server s{{ counter|length }} {{ vm }}:{{ agama_port + i+1 }} check
 {% endfor %}
 {% endfor %}
