@@ -1,6 +1,6 @@
-vm1 ansible_port=give
-vm2 ansible_port=vms
-vm3 ansible_port=pls
+vm1 ansible_port=pls
+vm2 ansible_port=gib
+vm3 ansible_port=vm
 
 [all:vars]
 ansible_host=193.40.156.67
