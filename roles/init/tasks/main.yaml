@@ -3,6 +3,10 @@
   ansible.builtin.apt:
     cache_valid_time: 86400
 
+- name: Pause for 10 sec
+  ansible.builtin.pause:
+    seconds: 20
+
 - name: hostname
   hostname:
     name: "{{ inventory_hostname }}"

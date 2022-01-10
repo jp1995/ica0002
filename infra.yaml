@@ -8,13 +8,6 @@
     gather_facts: yes
     tags: init
 
-  - name: Prometheus
-    hosts: prometheus
-    roles:
-      - prometheus
-    become: yes
-    tags: p
-
   - name: DNS server
     hosts: dns_servers
     roles:
@@ -37,6 +30,13 @@
       - dns_records
     become: yes
     tags: rec
+
+  - name: Prometheus
+    hosts: prometheus
+    roles:
+      - prometheus
+    become: yes
+    tags: p
 
   - name: Database server
     hosts: db_servers
@@ -73,7 +73,7 @@
     tags: grafana
 
   - name: HA
-    hosts: web_servers
+    hosts: HA_servers
     roles:
       - haproxy
       - keepalived

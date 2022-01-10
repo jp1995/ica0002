@@ -1,8 +1,9 @@
-vm1 ansible_port=19222
-vm2 ansible_port=11222
+vm1 ansible_port=give
+vm2 ansible_port=vms
+vm3 ansible_port=pls
 
 [all:vars]
-ansible_host=193.40.156.86
+ansible_host=193.40.156.67
 ansible_python_interpreter=python3
 ansible_ssh_user=ubuntu
 
@@ -11,27 +12,32 @@ vm1
 vm2
 
 [dns_masters]
-vm2
+vm3
 
 [dns_slaves]
 vm1
+vm2
 
 [dns_servers:children]
 dns_masters
 dns_slaves
 
 [prometheus]
-vm1
+vm3
 
 [grafana]
-vm2
+vm3
 
 [web_servers]
 vm1
 vm2
 
-[influxdb]
+[HA_servers]
 vm1
+vm2
+
+[influxdb]
+vm3
 
 [pinger]
-vm1
+vm3

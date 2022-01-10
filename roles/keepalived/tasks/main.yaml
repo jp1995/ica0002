@@ -27,7 +27,7 @@
 
 - name: unarchive keepalived-exporter
   ansible.builtin.unarchive:
-    src: http://backup/keepalived-exporter-1.2.0.linux-amd64.tar.gz
+    src: https://github.com/cafebazaar/keepalived-exporter/releases/download/v1.2.0/keepalived-exporter-1.2.0.linux-amd64.tar.gz
     dest: /usr/local/bin
     remote_src: yes
 

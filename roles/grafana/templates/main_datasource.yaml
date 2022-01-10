@@ -5,7 +5,7 @@ datasources:
    type: prometheus
    access: proxy
    orgId: 1
-   url: http://vm1:9090/prometheus
+   url: http://prometheus:9090/prometheus
    isDefault: true
    version: 1
    editable: true
@@ -13,13 +13,13 @@ datasources:
  - name: InfluxDB
    type: influxdb
    access: proxy
-   url: http://vm1:8086
+   url: http://influxdb:8086
    database: latency
    editable: true
 
  - name: InfluxDB-telegraf
    type: influxdb
    access: proxy
-   url: http://vm1:8086
+   url: http://influxdb:8086
    database: telegraf
    editable: true
