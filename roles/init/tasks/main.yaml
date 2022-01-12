@@ -3,9 +3,10 @@
   ansible.builtin.apt:
     cache_valid_time: 86400
 
-- name: Pause for 10 sec
+- name: Pause for 20 sec
   ansible.builtin.pause:
     seconds: 20
+  when: "'init' not in ansible_run_tags"
 
 - name: hostname
   hostname:
