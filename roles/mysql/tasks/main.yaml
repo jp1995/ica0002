@@ -25,6 +25,7 @@
     host: "%"
     priv: "{{ mysql_database }}.*:ALL"
     login_unix_socket: /var/run/mysqld/mysqld.sock
+  no_log: true
   notify:
     - Restart mysql
 
@@ -45,6 +46,7 @@
     host: "%"
     priv: "*.*:REPLICATION SLAVE"
     login_unix_socket: /var/run/mysqld/mysqld.sock
+  no_log: true
   notify:
     - Restart mysql
 

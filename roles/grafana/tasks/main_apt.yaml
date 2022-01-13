@@ -30,6 +30,7 @@
   ansible.builtin.template:
     src: ../templates/grafana.ini.j2
     dest: /etc/grafana/grafana.ini
+  no_log: true
   notify:
     - Restart grafana
 

@@ -11,3 +11,4 @@
   ansible.builtin.shell: |
     sleep 30
     sudo grafana-cli admin reset-admin-password "{{grafana_pass}}"
+  no_log: true
