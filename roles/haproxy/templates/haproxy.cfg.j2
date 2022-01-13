@@ -31,7 +31,7 @@ listen ha_frontend
 
 {% set counter = [] %}
 {% for vm in groups['web_servers'] %}
-{% for i in range(0,nginx_container_per_vm*4,agama_stride) %}
+{% for i in range(0,nginx_container_per_vm*agama_stride,agama_stride) %}
     {% set _ = counter.append(1) %}
     server s{{ counter|length }} {{ vm }}:{{ agama_port + i }} check
 {% endfor %}
