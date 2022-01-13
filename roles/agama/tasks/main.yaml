@@ -20,9 +20,9 @@
     container_default_behavior: no_defaults
     name: "agama_{{ item }}"
     image: agama
-    published_ports: "{{ agama_port + item|int }}:8000"
+    published_ports: "{{ agama_port + item|int}}:8000"
     restart_policy: always
     env:
       AGAMA_DATABASE_URI: mysql+pymysql://{{ mysql_user }}:{{ mysql_password }}@{{ mysql_host }}/{{ mysql_database }}
-  no_log: true
-  with_sequence: start=1 end=2
+  #no_log: true
+  with_sequence: start=0 end=4 stride="{{ agama_stride }}"
