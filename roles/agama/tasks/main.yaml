@@ -24,5 +24,5 @@
     restart_policy: always
     env:
       AGAMA_DATABASE_URI: mysql+pymysql://{{ mysql_user }}:{{ mysql_password }}@{{ mysql_host }}/{{ mysql_database }}
-  #no_log: true
-  with_sequence: start=0 end=4 stride="{{ agama_stride }}"
+  no_log: true
+  with_sequence: start=0 end="{{ (nginx_container_per_vm*agama_stride)-1 }}" stride="{{ agama_stride }}"

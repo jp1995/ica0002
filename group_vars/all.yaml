@@ -1,4 +1,4 @@
-mysql_host: vm1
+mysql_host: vm2
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -85,8 +85,8 @@ backup_server: 192.168.42.132
 backup_server_ssh_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
 
 grafana_port: 3000
-agama_port: 9005
-agama_stride: 4
+agama_port: 9501
+agama_stride: 5
 haproxy_port: 88
 
 nginx_container_per_vm: 2

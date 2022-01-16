@@ -1,4 +1,4 @@
-{% for vm in groups['dns_masters'] %}
+{% for vm in groups['dns_master'] %}
 #nameserver {{ hostvars[vm]['ansible_default_ipv4']['address'] }}
 {% endfor %}
 {% for vm in groups['dns_slaves'] %}

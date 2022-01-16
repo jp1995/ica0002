@@ -5,7 +5,7 @@ server {
     {% if inventory_hostname in groups['web_servers'] %}
 
 	location / {
-	    proxy_pass http://localhost:8001;
+	    proxy_pass http://localhost:{{ agama_port }};
 	}
 
 	location /haproxy-metrics {

@@ -6,7 +6,8 @@ Install and configure infrastructure with ansible:
 
 ### MySQL
 
-Restore MySQL data from the backup:
+To restore MySQL data from the backup, run the following commands on the source mysql host (not on the replica):
+
 
 ```
 sudo -u backup duplicity --no-encryption restore rsync://jp1995@backup.asdf.xyz//home/jp1995/mysql/ /home/backup/restore/
@@ -25,9 +26,11 @@ Restore InfluxDB data from the backup:
 
 ```
 sudo -u backup duplicity --no-encryption restore rsync://jp1995@backup.asdf.xyz//home/jp1995/influxdb/ /home/backup/restore/
-service telegraf stop
+sudo su
+systemctl stop telegraf
 influx -execute 'DROP DATABASE telegraf'
 influxd restore -portable -database telegraf /home/backup/restore
+systemctl start telegraf
 ```
 
 To verify:

@@ -25,7 +25,7 @@
     tags: dns
 
   - name: dns_records
-    hosts: dns_masters
+    hosts: dns_master
     roles:
       - dns_records
     become: yes
