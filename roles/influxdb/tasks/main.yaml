@@ -35,7 +35,7 @@
 
 - name: Create telegraph config file
   ansible.builtin.template:
-    src: ../templates/telegraf.conf
+    src: ../templates/telegraf.conf.j2
     dest: /etc/telegraf/telegraf.conf
   notify:
     - Restart telegraf

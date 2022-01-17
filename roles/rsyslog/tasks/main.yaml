@@ -1,6 +1,6 @@
 - name: Create rsyslog conf file
   ansible.builtin.template:
-    src: ../templates/10-telegraf.conf
+    src: ../templates/10-telegraf.conf.j2
     dest: /etc/rsyslog.d/10-telegraf.conf
   notify:
     - Restart rsyslog

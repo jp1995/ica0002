@@ -1,4 +1,4 @@
-mysql_host: vm2
+mysql_host: vm1
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -79,15 +79,16 @@ startup_name: asdf.xyz
 startup_domain: asdf
 startup_tld: xyz # currently not used
 
-influxdb_host: vm1
-
 backup_server: 192.168.42.132
 backup_server_ssh_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
 
-grafana_port: 3000
-agama_port: 9501
-agama_stride: 5
 haproxy_port: 88
+
+influxdb_port: 6514
+grafana_port: 3000
+agama_port: 9005
+agama_stride: 4
+
 
 nginx_container_per_vm: 2
 
@@ -104,9 +105,12 @@ dns_cname_records:
   mysql2: "{{ groups['db_servers'][1] }}"
   web1: "{{ groups['web_servers'][0] }}"
   web2: "{{ groups['web_servers'][1] }}"
+  ns_master: "{{ groups['dns_master'][0] }}"
+  ns_slave1: "{{ groups['dns_slaves'][0] }}"
+  ns_slave2: "{{ groups['dns_slaves'][1] }}"
   haproxy1: "{{ groups['HA_servers'][0] }}"
   haproxy2: "{{ groups['HA_servers'][1] }}"
-  prometheus: "{{ groups['prometheus'][0] }}"
   keepalive1: "{{ groups['HA_servers'][0] }}"
   keepalive2: "{{ groups['HA_servers'][1] }}"
+  prometheus: "{{ groups['prometheus'][0] }}"
   pinger: "{{ groups['pinger'][0] }}"
