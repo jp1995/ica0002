@@ -5,12 +5,6 @@
     - python3-pymysql
     state: present
 
-- name: Start and enable mysql service
-  ansible.builtin.service:
-    name: mysql
-    state: started
-    enabled: yes
-
 - name: Create a mysql database for agama
   community.mysql.mysql_db:
     name: "{{ mysql_database }}"
@@ -35,6 +29,12 @@
     dest: /etc/mysql/mysql.conf.d/override.cnf
   notify:
     - Restart mysql
+
+- name: Start and enable mysql service
+  ansible.builtin.service:
+    name: mysql
+    state: started
+    enabled: yes
 
 - name: Flush handlers
   meta: flush_handlers
