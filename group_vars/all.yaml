@@ -86,7 +86,7 @@ haproxy_port: 88
 
 influxdb_port: 6514
 grafana_port: 3000
-agama_port: 9006
+agama_port: 9005
 agama_stride: 4
 nginx_container_per_vm: 2
 

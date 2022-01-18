@@ -1,4 +1,4 @@
-Thu 13 Jan 13:23:38 EET 2022
+Tue 18 Jan 11:42:41 EET 2022
 + hostname
 ubuntu-vm
 + ansible-playbook infra.yaml --diff
@@ -6,21 +6,23 @@ ubuntu-vm
 PLAY [Init] ********************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [vm2]
 ok: [vm1]
+ok: [vm2]
 ok: [vm3]
 
 TASK [init : Update apt cache] *************************************************
-ok: [vm3]
 changed: [vm1]
+changed: [vm3]
 changed: [vm2]
 
-TASK [init : Pause for 20 sec] *************************************************
-Pausing for 20 seconds
-(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
-ok: [vm1]
-
 TASK [init : hostname] *********************************************************
+--- before
++++ after
+@@ -1 +1 @@
+-hostname = jp1995-1
++hostname = vm1
+
+changed: [vm1]
 --- before
 +++ after
 @@ -1 +1 @@
@@ -35,18 +37,11 @@ changed: [vm2]
 +hostname = vm3
 
 changed: [vm3]
---- before
-+++ after
-@@ -1 +1 @@
--hostname = jp1995-1
-+hostname = vm1
-
-changed: [vm1]
 
 TASK [backup : Create user backup and generate ssh key] ************************
-changed: [vm2]
 changed: [vm1]
 changed: [vm3]
+changed: [vm2]
 
 TASK [backup : Create /home/backup/restore directory] **************************
 --- before
@@ -97,7 +92,7 @@ The following NEW packages will be installed:
   duplicity librsync2 python3-bcrypt python3-fasteners python3-future
   python3-lockfile python3-monotonic python3-paramiko
 0 upgraded, 8 newly installed, 0 to remove and 142 not upgraded.
-changed: [vm2]
+changed: [vm3]
 The following additional packages will be installed:
   librsync2 python3-bcrypt python3-fasteners python3-future python3-lockfile
   python3-monotonic python3-paramiko
@@ -108,7 +103,7 @@ The following NEW packages will be installed:
   duplicity librsync2 python3-bcrypt python3-fasteners python3-future
   python3-lockfile python3-monotonic python3-paramiko
 0 upgraded, 8 newly installed, 0 to remove and 142 not upgraded.
-changed: [vm3]
+changed: [vm2]
 The following additional packages will be installed:
   librsync2 python3-bcrypt python3-fasteners python3-future python3-lockfile
   python3-monotonic python3-paramiko
@@ -123,26 +118,26 @@ changed: [vm1]
 
 TASK [backup : Create known_hosts file] ****************************************
 --- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpgp_uynmp/known_hosts.j2
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmp8detuq4p/known_hosts.j2
 @@ -0,0 +1,2 @@
 +backup ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
 +backup.asdf.xyz ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
 
 changed: [vm2]
 --- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmptz08zlvi/known_hosts.j2
-@@ -0,0 +1,2 @@
-+backup ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
-+backup.asdf.xyz ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
-
-changed: [vm3]
---- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmp0ht9e9nk/known_hosts.j2
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpt4e3qk5r/known_hosts.j2
 @@ -0,0 +1,2 @@
 +backup ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
 +backup.asdf.xyz ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
 
 changed: [vm1]
+--- before
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpd922p9jk/known_hosts.j2
+@@ -0,0 +1,2 @@
++backup ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
++backup.asdf.xyz ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
+
+changed: [vm3]
 
 PLAY [DNS server] **************************************************************
 
@@ -161,7 +156,7 @@ The following NEW packages will be installed:
 The following packages will be upgraded:
   bind9-dnsutils bind9-libs
 2 upgraded, 4 newly installed, 0 to remove and 140 not upgraded.
-changed: [vm2]
+changed: [vm1]
 The following additional packages will be installed:
   bind9-dnsutils bind9-libs bind9-utils dns-root-data python3-ply
 Suggested packages:
@@ -181,40 +176,40 @@ The following NEW packages will be installed:
 The following packages will be upgraded:
   bind9-dnsutils bind9-libs
 2 upgraded, 4 newly installed, 0 to remove and 140 not upgraded.
-changed: [vm1]
+changed: [vm2]
 
 TASK [bind : install python3-dnspython] ****************************************
 The following NEW packages will be installed:
   python3-dnspython
 0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
-changed: [vm3]
+changed: [vm1]
 The following NEW packages will be installed:
   python3-dnspython
 0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
-changed: [vm1]
+changed: [vm3]
 The following NEW packages will be installed:
   python3-dnspython
 0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
 changed: [vm2]
 
 TASK [bind : Start and enable bind9 service] ***********************************
-ok: [vm1]
 ok: [vm3]
+ok: [vm1]
 ok: [vm2]
 
 TASK [bind : Configure DNS forwarders] *****************************************
-changed: [vm1]
 changed: [vm3]
+changed: [vm1]
 changed: [vm2]
 
 TASK [bind : Configure DNS master zone] ****************************************
 skipping: [vm1]
 skipping: [vm2]
 --- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpqapiwq_u/db.asdf
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmph5lukb0j/db.asdf
 @@ -0,0 +1,15 @@
 +$TTL	604800
-+asdf.xyz.	IN	SOA	vm2.asdf.xyz. johan.asdf.xyz. (
++asdf.xyz.	IN	SOA	vm3.asdf.xyz. johan.asdf.xyz. (
 +			      2		; Serial
 +			 604800		; Refresh
 +			  86400		; Retry
@@ -224,9 +219,9 @@ skipping: [vm2]
 +asdf.xyz.   IN  NS	vm3
 +asdf.xyz.   IN  NS	vm1
 +asdf.xyz.   IN  NS	vm2
-+vm1    IN	A	192.168.42.16
-+vm2    IN	A	192.168.42.138
-+vm3    IN	A	192.168.42.94
++vm1    IN	A	192.168.42.194
++vm2    IN	A	192.168.42.189
++vm3    IN	A	192.168.42.109
 +backup   IN  A   192.168.42.132
 
 changed: [vm3]
@@ -235,10 +230,10 @@ TASK [bind : Configure reverse zone] *******************************************
 skipping: [vm1]
 skipping: [vm2]
 --- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmp01q5gk7o/db.asdf.reverse
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmp4x9fx62x/db.asdf.reverse
 @@ -0,0 +1,14 @@
 +$TTL	604800
-+42.168.192.in-addr.arpa.	IN	SOA	vm2.asdf.xyz. johan.asdf.xyz. (
++42.168.192.in-addr.arpa.	IN	SOA	vm3.asdf.xyz. johan.asdf.xyz. (
 +			      2		; Serial
 +			 604800		; Refresh
 +			  86400		; Retry
@@ -248,15 +243,15 @@ skipping: [vm2]
 +42.168.192.in-addr.arpa.    IN  NS	vm3.asdf.xyz.
 +42.168.192.in-addr.arpa.    IN  NS	vm1.asdf.xyz.
 +42.168.192.in-addr.arpa.    IN  NS	vm2.asdf.xyz.
-+16   IN  PTR vm1.asdf.xyz.
-+138   IN  PTR vm2.asdf.xyz.
-+94   IN  PTR vm3.asdf.xyz.
++194   IN  PTR vm1.asdf.xyz.
++189   IN  PTR vm2.asdf.xyz.
++109   IN  PTR vm3.asdf.xyz.
 
 changed: [vm3]
 
 TASK [bind : Reference master zone] ********************************************
 --- before: /etc/bind/named.conf.local
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmp1xheo4kd/named.conf.local.j2
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpe27hqwkp/named.conf.local.j2
 @@ -1,8 +1,14 @@
 -//
 -// Do any local configuration here
@@ -281,14 +276,14 @@ TASK [bind : Reference master zone] ********************************************
 
 changed: [vm3]
 --- before: /etc/bind/named.conf.local
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmp2gu0kr96/named.conf.local.j2
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpfbh3vbck/named.conf.local.j2
 @@ -1,8 +1,15 @@
 -//
 -// Do any local configuration here
 -//
 +zone "asdf.xyz" {
 +    type slave;
-+    masters { 192.168.42.94; };
++    masters { 192.168.42.109; };
 +    file "db.asdf";
 +};
  
@@ -297,24 +292,24 @@ changed: [vm3]
 -//include "/etc/bind/zones.rfc1918";
 +zone "42.168.192.in-addr.arpa" {
 +    type slave;
-+    masters { 192.168.42.94; };
++    masters { 192.168.42.109; };
 +    file "db.asdf.reverse";
 +};
  
-+server 192.168.42.94 {
++server 192.168.42.109 {
 +    keys { dns_transfer_key;};
 +};
 
 changed: [vm1]
 --- before: /etc/bind/named.conf.local
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpcex7r_ty/named.conf.local.j2
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpgg104ryx/named.conf.local.j2
 @@ -1,8 +1,15 @@
 -//
 -// Do any local configuration here
 -//
 +zone "asdf.xyz" {
 +    type slave;
-+    masters { 192.168.42.94; };
++    masters { 192.168.42.109; };
 +    file "db.asdf";
 +};
  
@@ -323,11 +318,11 @@ changed: [vm1]
 -//include "/etc/bind/zones.rfc1918";
 +zone "42.168.192.in-addr.arpa" {
 +    type slave;
-+    masters { 192.168.42.94; };
++    masters { 192.168.42.109; };
 +    file "db.asdf.reverse";
 +};
  
-+server 192.168.42.94 {
++server 192.168.42.109 {
 +    keys { dns_transfer_key;};
 +};
 
@@ -337,25 +332,25 @@ TASK [bind_exporter : Install bind9 exporter] **********************************
 The following NEW packages will be installed:
   prometheus-bind-exporter
 0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
-changed: [vm3]
+changed: [vm1]
 The following NEW packages will be installed:
   prometheus-bind-exporter
 0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
-changed: [vm1]
+changed: [vm3]
 The following NEW packages will be installed:
   prometheus-bind-exporter
 0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
 changed: [vm2]
 
 TASK [bind_exporter : Start and enable bind exporter service] ******************
-ok: [vm1]
 ok: [vm3]
+ok: [vm1]
 ok: [vm2]
 
 RUNNING HANDLER [bind : Restart bind9] *****************************************
-changed: [vm2]
-changed: [vm1]
 changed: [vm3]
+changed: [vm1]
+changed: [vm2]
 
 RUNNING HANDLER [bind : rndc reload] *******************************************
 changed: [vm3]
@@ -364,17 +359,17 @@ PLAY [dns_resolved] ************************************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [vm1]
-ok: [vm3]
 ok: [vm2]
+ok: [vm3]
 
 TASK [dns_resolved : Stop and disable systemd-resolved] ************************
 changed: [vm3]
-changed: [vm2]
 changed: [vm1]
+changed: [vm2]
 
 TASK [dns_resolved : Create correct resolv.conf file] **************************
 --- before: /etc/resolv.conf
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmp9mke1l_j/resolv.conf.j2
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmprj1qpfls/resolv.conf.j2
 @@ -1,19 +1,4 @@
 -# This file is managed by man:systemd-resolved(8). Do not edit.
 -#
@@ -395,14 +390,42 @@ TASK [dns_resolved : Create correct resolv.conf file] **************************
 -nameserver 127.0.0.53
 -options edns0 trust-ad
 -search openstacklocal
-+#nameserver 192.168.42.94
-+nameserver 192.168.42.16
-+nameserver 192.168.42.138
++#nameserver 192.168.42.109
++nameserver 192.168.42.194
++nameserver 192.168.42.189
++search asdf.xyz
+
+changed: [vm2]
+--- before: /etc/resolv.conf
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpjpjle69l/resolv.conf.j2
+@@ -1,19 +1,4 @@
+-# This file is managed by man:systemd-resolved(8). Do not edit.
+-#
+-# This is a dynamic resolv.conf file for connecting local clients to the
+-# internal DNS stub resolver of systemd-resolved. This file lists all
+-# configured search domains.
+-#
+-# Run "resolvectl status" to see details about the uplink DNS servers
+-# currently in use.
+-#
+-# Third party programs must not access this file directly, but only through the
+-# symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a different way,
+-# replace this symlink by a static file or a different symlink.
+-#
+-# See man:systemd-resolved.service(8) for details about the supported modes of
+-# operation for /etc/resolv.conf.
+-
+-nameserver 127.0.0.53
+-options edns0 trust-ad
+-search openstacklocal
++#nameserver 192.168.42.109
++nameserver 192.168.42.194
++nameserver 192.168.42.189
 +search asdf.xyz
 
 changed: [vm1]
 --- before: /etc/resolv.conf
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpxvtne0am/resolv.conf.j2
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpy6zojp4k/resolv.conf.j2
 @@ -1,19 +1,4 @@
 -# This file is managed by man:systemd-resolved(8). Do not edit.
 -#
@@ -423,45 +446,17 @@ changed: [vm1]
 -nameserver 127.0.0.53
 -options edns0 trust-ad
 -search openstacklocal
-+#nameserver 192.168.42.94
-+nameserver 192.168.42.16
-+nameserver 192.168.42.138
++#nameserver 192.168.42.109
++nameserver 192.168.42.194
++nameserver 192.168.42.189
 +search asdf.xyz
 
 changed: [vm3]
---- before: /etc/resolv.conf
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpl2er72fp/resolv.conf.j2
-@@ -1,19 +1,4 @@
--# This file is managed by man:systemd-resolved(8). Do not edit.
--#
--# This is a dynamic resolv.conf file for connecting local clients to the
--# internal DNS stub resolver of systemd-resolved. This file lists all
--# configured search domains.
--#
--# Run "resolvectl status" to see details about the uplink DNS servers
--# currently in use.
--#
--# Third party programs must not access this file directly, but only through the
--# symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a different way,
--# replace this symlink by a static file or a different symlink.
--#
--# See man:systemd-resolved.service(8) for details about the supported modes of
--# operation for /etc/resolv.conf.
--
--nameserver 127.0.0.53
--options edns0 trust-ad
--search openstacklocal
-+#nameserver 192.168.42.94
-+nameserver 192.168.42.16
-+nameserver 192.168.42.138
-+search asdf.xyz
-
-changed: [vm2]
 
 RUNNING HANDLER [dns_resolved : rndc reload] ***********************************
+changed: [vm2]
 changed: [vm1]
 changed: [vm3]
-changed: [vm2]
 
 PLAY [dns_records] *************************************************************
 
@@ -481,11 +476,14 @@ changed: [vm3] => (item={'key': 'mysql1', 'value': 'vm1'})
 changed: [vm3] => (item={'key': 'mysql2', 'value': 'vm2'})
 changed: [vm3] => (item={'key': 'web1', 'value': 'vm1'})
 changed: [vm3] => (item={'key': 'web2', 'value': 'vm2'})
+changed: [vm3] => (item={'key': 'ns_master', 'value': 'vm3'})
+changed: [vm3] => (item={'key': 'ns_slave1', 'value': 'vm1'})
+changed: [vm3] => (item={'key': 'ns_slave2', 'value': 'vm2'})
 changed: [vm3] => (item={'key': 'haproxy1', 'value': 'vm1'})
 changed: [vm3] => (item={'key': 'haproxy2', 'value': 'vm2'})
-changed: [vm3] => (item={'key': 'prometheus', 'value': 'vm3'})
 changed: [vm3] => (item={'key': 'keepalive1', 'value': 'vm1'})
 changed: [vm3] => (item={'key': 'keepalive2', 'value': 'vm2'})
+changed: [vm3] => (item={'key': 'prometheus', 'value': 'vm3'})
 changed: [vm3] => (item={'key': 'pinger', 'value': 'vm3'})
 
 PLAY [Prometheus] **************************************************************
@@ -521,7 +519,7 @@ ok: [vm3]
 
 TASK [prometheus : Apply configuration changes] ********************************
 --- before: /etc/prometheus/prometheus.yml
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpi0b9zhy0/prometheus.yml.j2
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpxf0r0eiu/prometheus.yml.j2
 @@ -1,44 +1,56 @@
 -# Sample config for Prometheus.
 -
@@ -617,7 +615,7 @@ changed: [vm3]
 
 TASK [prometheus : Make Prometheus reachable from outside] *********************
 --- before: /etc/default/prometheus
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpbcfm_mnw/prometheus.j2
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpez9ghzds/prometheus.j2
 @@ -1,57 +1,2 @@
  # Set the command-line arguments to pass to the server.
 -ARGS=""
@@ -676,7 +674,7 @@ TASK [prometheus : Make Prometheus reachable from outside] *********************
 -#                             Maximum number of queries executed concurrently.
 -#  --log.level=info           Only log messages with the given severity or
 -#                             above. One of: [debug, info, warn, error]
-+ARGS="--web.external-url=http://193.40.156.67:9480/prometheus"
++ARGS="--web.external-url=http://193.40.156.67:10980/prometheus"
 \ No newline at end of file
 
 changed: [vm3]
@@ -687,8 +685,8 @@ changed: [vm3]
 PLAY [Database server] *********************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [mysql : Install mysql server and pymysql] ********************************
 The following additional packages will be installed:
@@ -746,33 +744,33 @@ changed: [vm2]
 
 TASK [mysql : Bind mysql server to public interface] ***************************
 --- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpivtqcvtv/override.cnf.j2
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpacw0clwp/override.cnf.j2
 @@ -0,0 +1,6 @@
 +[mysqld]
 +bind-address = 0.0.0.0
 +log-bin = /var/log/mysql/mysql-bin.log
 +relay-log = /var/log/mysql/mysql-relay.log
 +replicate-do-db = agama
-+server-id = 138
-
-changed: [vm2]
---- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpf71gp7vx/override.cnf.j2
-@@ -0,0 +1,6 @@
-+[mysqld]
-+bind-address = 0.0.0.0
-+log-bin = /var/log/mysql/mysql-bin.log
-+relay-log = /var/log/mysql/mysql-relay.log
-+replicate-do-db = agama
-+server-id = 16
++server-id = 194
 
 changed: [vm1]
+--- before
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpjiqv_sxa/override.cnf.j2
+@@ -0,0 +1,6 @@
++[mysqld]
++bind-address = 0.0.0.0
++log-bin = /var/log/mysql/mysql-bin.log
++relay-log = /var/log/mysql/mysql-relay.log
++replicate-do-db = agama
++server-id = 189
+
+changed: [vm2]
 
 TASK [mysql : Flush handlers] **************************************************
 
 RUNNING HANDLER [mysql_backup : Restart mysql] *********************************
-changed: [vm1]
 changed: [vm2]
+changed: [vm1]
 
 TASK [mysql : Create a mysql user replication] *********************************
 changed: [vm1]
@@ -792,17 +790,17 @@ The following additional packages will be installed:
 The following NEW packages will be installed:
   daemon prometheus-mysqld-exporter
 0 upgraded, 2 newly installed, 0 to remove and 140 not upgraded.
-changed: [vm1]
+changed: [vm2]
 The following additional packages will be installed:
   daemon
 The following NEW packages will be installed:
   daemon prometheus-mysqld-exporter
 0 upgraded, 2 newly installed, 0 to remove and 140 not upgraded.
-changed: [vm2]
+changed: [vm1]
 
 TASK [mysql_exporter : export replication metrics] *****************************
 --- before: /etc/default/prometheus-mysqld-exporter
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpyjyhfigm/prometheus-mysqld-exporter
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpjhwk7h2m/prometheus-mysqld-exporter
 @@ -1,120 +1 @@
 -# By default the connection string will be read from
 -# $HOME/my.cnf or from the file specified with the -config.my-cnf parameter.
@@ -928,7 +926,7 @@ TASK [mysql_exporter : export replication metrics] *****************************
 
 changed: [vm1]
 --- before: /etc/default/prometheus-mysqld-exporter
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpdmg_11o0/prometheus-mysqld-exporter
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpz2zfu032/prometheus-mysqld-exporter
 @@ -1,120 +1 @@
 -# By default the connection string will be read from
 -# $HOME/my.cnf or from the file specified with the -config.my-cnf parameter.
@@ -1068,8 +1066,8 @@ Pausing for 10 seconds
 ok: [vm1]
 
 TASK [mysql_exporter : Start and enable mysql exporter service] ****************
-changed: [vm2]
 changed: [vm1]
+changed: [vm2]
 
 TASK [mysql_backup : Create /home/backup/mysql directory] **********************
 --- before
@@ -1083,7 +1081,7 @@ TASK [mysql_backup : Create /home/backup/mysql directory] **********************
 +    "state": "directory"
  }
 
-changed: [vm2]
+changed: [vm1]
 --- before
 +++ after
 @@ -1,5 +1,5 @@
@@ -1095,31 +1093,31 @@ changed: [vm2]
 +    "state": "directory"
  }
 
-changed: [vm1]
+changed: [vm2]
 
 TASK [mysql_backup : Create a mysql user backup] *******************************
 changed: [vm2]
 changed: [vm1]
 
 TASK [mysql_backup : Create configuration file] ********************************
-changed: [vm1]
 changed: [vm2]
+changed: [vm1]
 
 TASK [mysql_backup : Create cron tab for creating backups] *********************
 --- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpkq_mzsot/mysql-backup.j2
-@@ -0,0 +1 @@
-+
-
-changed: [vm1]
---- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmptdm3a7ou/mysql-backup.j2
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpso11hgyb/mysql-backup.j2
 @@ -0,0 +1,3 @@
 +30 0 * * * backup mysqldump agama > /home/backup/mysql/agama.sql
 +40 0 * * 0 backup duplicity --no-encryption --allow-source-mismatch full /home/backup/mysql/ rsync://jp1995@backup.asdf.xyz//home/jp1995/mysql/
 +40 0 * * 1-6 backup duplicity --no-encryption --allow-source-mismatch incremental /home/backup/mysql/ rsync://jp1995@backup.asdf.xyz//home/jp1995/mysql/
 
 changed: [vm2]
+--- before
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmp2q8a_uqp/mysql-backup.j2
+@@ -0,0 +1 @@
++
+
+changed: [vm1]
 
 RUNNING HANDLER [mysql : Reset MySQL source] ***********************************
 skipping: [vm2] => (item=stopreplica) 
@@ -1138,8 +1136,8 @@ changed: [vm2] => (item=resetreplica)
 changed: [vm2] => (item=startreplica)
 
 RUNNING HANDLER [mysql_exporter : Restart mysql exporter] **********************
-changed: [vm2]
 changed: [vm1]
+changed: [vm2]
 
 RUNNING HANDLER [mysql_backup : Restart mysql] *********************************
 changed: [vm2]
@@ -1148,8 +1146,8 @@ changed: [vm1]
 PLAY [All servers] *************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 ok: [vm3]
 
 TASK [node_exporter : Install prometheus node exporters] ***********************
@@ -1177,8 +1175,8 @@ changed: [vm2]
 
 TASK [node_exporter : Start and enable node exporters service] *****************
 ok: [vm1]
-ok: [vm2]
 ok: [vm3]
+ok: [vm2]
 
 TASK [nginx : Install nginx] ***************************************************
 The following additional packages will be installed:
@@ -1208,7 +1206,7 @@ The following NEW packages will be installed:
   libnginx-mod-http-xslt-filter libnginx-mod-mail libnginx-mod-stream libtiff5
   libwebp6 libxpm4 nginx nginx-common nginx-core
 0 upgraded, 17 newly installed, 0 to remove and 140 not upgraded.
-changed: [vm1]
+changed: [vm2]
 The following additional packages will be installed:
   fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0
   libjpeg-turbo8 libjpeg8 libnginx-mod-http-image-filter
@@ -1222,248 +1220,12 @@ The following NEW packages will be installed:
   libnginx-mod-http-xslt-filter libnginx-mod-mail libnginx-mod-stream libtiff5
   libwebp6 libxpm4 nginx nginx-common nginx-core
 0 upgraded, 17 newly installed, 0 to remove and 140 not upgraded.
-changed: [vm2]
+changed: [vm1]
 
 TASK [nginx : Replace the nginx server configuration file] *********************
 --- before: /etc/nginx/sites-enabled/default
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmp1fya675d/default.j2
-@@ -1,91 +1,31 @@
--##
--# You should look at the following URL's in order to grasp a solid understanding
--# of Nginx configuration files in order to fully unleash the power of Nginx.
--# https://www.nginx.com/resources/wiki/start/
--# https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/
--# https://wiki.debian.org/Nginx/DirectoryStructure
--#
--# In most cases, administrators will remove this file from sites-enabled/ and
--# leave it as reference inside of sites-available where it will continue to be
--# updated by the nginx packaging team.
--#
--# This file will automatically load configuration files provided by other
--# applications, such as Drupal or Wordpress. These applications will be made
--# available underneath a path with that package name, such as /drupal8.
--#
--# Please see /usr/share/doc/nginx-doc/examples/ for more detailed examples.
--##
--
--# Default server configuration
--#
- server {
- 	listen 80 default_server;
--	listen [::]:80 default_server;
--
--	# SSL configuration
--	#
--	# listen 443 ssl default_server;
--	# listen [::]:443 ssl default_server;
--	#
--	# Note: You should disable gzip for SSL traffic.
--	# See: https://bugs.debian.org/773332
--	#
--	# Read up on ssl_ciphers to ensure a secure configuration.
--	# See: https://bugs.debian.org/765782
--	#
--	# Self signed certs generated by the ssl-cert package
--	# Don't use them in a production server!
--	#
--	# include snippets/snakeoil.conf;
--
--	root /var/www/html;
--
--	# Add index.php to the list if you are using PHP
--	index index.html index.htm index.nginx-debian.html;
--
- 	server_name _;
--
-+	proxy_set_header Host $http_host;
-+    
- 	location / {
--		# First attempt to serve request as file, then
--		# as directory, then fall back to displaying a 404.
--		try_files $uri $uri/ =404;
-+	    proxy_pass http://localhost:8001;
- 	}
- 
--	# pass PHP scripts to FastCGI server
--	#
--	#location ~ \.php$ {
--	#	include snippets/fastcgi-php.conf;
--	#
--	#	# With php-fpm (or other unix sockets):
--	#	fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
--	#	# With php-cgi (or other tcp sockets):
--	#	fastcgi_pass 127.0.0.1:9000;
--	#}
-+	location /haproxy-metrics {
-+	    proxy_pass http://localhost:9101/metrics;
-+	}
- 
--	# deny access to .htaccess files, if Apache's document root
--	# concurs with nginx's one
--	#
--	#location ~ /\.ht {
--	#	deny all;
--	#}
-+	location /keepalived-metrics {
-+	    proxy_pass http://localhost:9165/metrics;
-+	}
-+	location /node-metrics {
-+	    proxy_pass http://localhost:9100/metrics;
-+	}
-+
-+	location /nginx-metrics {
-+	    proxy_pass http://localhost:9113/metrics;
-+	}
-+	location /mysql-metrics {
-+	    proxy_pass http://localhost:9104/metrics;
-+	}
-+	location /bind-metrics {
-+	    proxy_pass http://localhost:9119/metrics;
-+	}
- }
- 
--
--# Virtual Host configuration for example.com
--#
--# You can move that to a different file under sites-available/ and symlink that
--# to sites-enabled/ to enable it.
--#
--#server {
--#	listen 80;
--#	listen [::]:80;
--#
--#	server_name example.com;
--#
--#	root /var/www/example.com;
--#	index index.html;
--#
--#	location / {
--#		try_files $uri $uri/ =404;
--#	}
--#}
-
-changed: [vm1]
---- before: /etc/nginx/sites-enabled/default
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmp2107x7ex/default.j2
-@@ -1,91 +1,31 @@
--##
--# You should look at the following URL's in order to grasp a solid understanding
--# of Nginx configuration files in order to fully unleash the power of Nginx.
--# https://www.nginx.com/resources/wiki/start/
--# https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/
--# https://wiki.debian.org/Nginx/DirectoryStructure
--#
--# In most cases, administrators will remove this file from sites-enabled/ and
--# leave it as reference inside of sites-available where it will continue to be
--# updated by the nginx packaging team.
--#
--# This file will automatically load configuration files provided by other
--# applications, such as Drupal or Wordpress. These applications will be made
--# available underneath a path with that package name, such as /drupal8.
--#
--# Please see /usr/share/doc/nginx-doc/examples/ for more detailed examples.
--##
--
--# Default server configuration
--#
- server {
- 	listen 80 default_server;
--	listen [::]:80 default_server;
--
--	# SSL configuration
--	#
--	# listen 443 ssl default_server;
--	# listen [::]:443 ssl default_server;
--	#
--	# Note: You should disable gzip for SSL traffic.
--	# See: https://bugs.debian.org/773332
--	#
--	# Read up on ssl_ciphers to ensure a secure configuration.
--	# See: https://bugs.debian.org/765782
--	#
--	# Self signed certs generated by the ssl-cert package
--	# Don't use them in a production server!
--	#
--	# include snippets/snakeoil.conf;
--
--	root /var/www/html;
--
--	# Add index.php to the list if you are using PHP
--	index index.html index.htm index.nginx-debian.html;
--
- 	server_name _;
--
-+	proxy_set_header Host $http_host;
-+    
- 	location / {
--		# First attempt to serve request as file, then
--		# as directory, then fall back to displaying a 404.
--		try_files $uri $uri/ =404;
-+	    proxy_pass http://localhost:8001;
- 	}
- 
--	# pass PHP scripts to FastCGI server
--	#
--	#location ~ \.php$ {
--	#	include snippets/fastcgi-php.conf;
--	#
--	#	# With php-fpm (or other unix sockets):
--	#	fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
--	#	# With php-cgi (or other tcp sockets):
--	#	fastcgi_pass 127.0.0.1:9000;
--	#}
-+	location /haproxy-metrics {
-+	    proxy_pass http://localhost:9101/metrics;
-+	}
- 
--	# deny access to .htaccess files, if Apache's document root
--	# concurs with nginx's one
--	#
--	#location ~ /\.ht {
--	#	deny all;
--	#}
-+	location /keepalived-metrics {
-+	    proxy_pass http://localhost:9165/metrics;
-+	}
-+	location /node-metrics {
-+	    proxy_pass http://localhost:9100/metrics;
-+	}
-+
-+	location /nginx-metrics {
-+	    proxy_pass http://localhost:9113/metrics;
-+	}
-+	location /mysql-metrics {
-+	    proxy_pass http://localhost:9104/metrics;
-+	}
-+	location /bind-metrics {
-+	    proxy_pass http://localhost:9119/metrics;
-+	}
- }
- 
--
--# Virtual Host configuration for example.com
--#
--# You can move that to a different file under sites-available/ and symlink that
--# to sites-enabled/ to enable it.
--#
--#server {
--#	listen 80;
--#	listen [::]:80;
--#
--#	server_name example.com;
--#
--#	root /var/www/example.com;
--#	index index.html;
--#
--#	location / {
--#		try_files $uri $uri/ =404;
--#	}
--#}
-
-changed: [vm2]
---- before: /etc/nginx/sites-enabled/default
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpbddmv61b/default.j2
-@@ -1,91 +1,26 @@
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmp7y9kjrek/default.j2
+@@ -1,91 +1,27 @@
 -##
 -# You should look at the following URL's in order to grasp a solid understanding
 -# of Nginx configuration files in order to fully unleash the power of Nginx.
@@ -1516,6 +1278,7 @@ changed: [vm2]
 -		# as directory, then fall back to displaying a 404.
 -		try_files $uri $uri/ =404;
 +	proxy_set_header Host $http_host;
++	large_client_header_buffers 4 16k;
 +    
 +	location /node-metrics {
 +	    proxy_pass http://localhost:9100/metrics;
@@ -1576,11 +1339,249 @@ changed: [vm2]
 -#}
 
 changed: [vm3]
+--- before: /etc/nginx/sites-enabled/default
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmptrt3wc0f/default.j2
+@@ -1,91 +1,32 @@
+-##
+-# You should look at the following URL's in order to grasp a solid understanding
+-# of Nginx configuration files in order to fully unleash the power of Nginx.
+-# https://www.nginx.com/resources/wiki/start/
+-# https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/
+-# https://wiki.debian.org/Nginx/DirectoryStructure
+-#
+-# In most cases, administrators will remove this file from sites-enabled/ and
+-# leave it as reference inside of sites-available where it will continue to be
+-# updated by the nginx packaging team.
+-#
+-# This file will automatically load configuration files provided by other
+-# applications, such as Drupal or Wordpress. These applications will be made
+-# available underneath a path with that package name, such as /drupal8.
+-#
+-# Please see /usr/share/doc/nginx-doc/examples/ for more detailed examples.
+-##
+-
+-# Default server configuration
+-#
+ server {
+ 	listen 80 default_server;
+-	listen [::]:80 default_server;
+-
+-	# SSL configuration
+-	#
+-	# listen 443 ssl default_server;
+-	# listen [::]:443 ssl default_server;
+-	#
+-	# Note: You should disable gzip for SSL traffic.
+-	# See: https://bugs.debian.org/773332
+-	#
+-	# Read up on ssl_ciphers to ensure a secure configuration.
+-	# See: https://bugs.debian.org/765782
+-	#
+-	# Self signed certs generated by the ssl-cert package
+-	# Don't use them in a production server!
+-	#
+-	# include snippets/snakeoil.conf;
+-
+-	root /var/www/html;
+-
+-	# Add index.php to the list if you are using PHP
+-	index index.html index.htm index.nginx-debian.html;
+-
+ 	server_name _;
+-
++	proxy_set_header Host $http_host;
++	large_client_header_buffers 4 16k;
++    
+ 	location / {
+-		# First attempt to serve request as file, then
+-		# as directory, then fall back to displaying a 404.
+-		try_files $uri $uri/ =404;
++	    proxy_pass http://localhost:9005;
+ 	}
+ 
+-	# pass PHP scripts to FastCGI server
+-	#
+-	#location ~ \.php$ {
+-	#	include snippets/fastcgi-php.conf;
+-	#
+-	#	# With php-fpm (or other unix sockets):
+-	#	fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+-	#	# With php-cgi (or other tcp sockets):
+-	#	fastcgi_pass 127.0.0.1:9000;
+-	#}
++	location /haproxy-metrics {
++	    proxy_pass http://localhost:9101/metrics;
++	}
+ 
+-	# deny access to .htaccess files, if Apache's document root
+-	# concurs with nginx's one
+-	#
+-	#location ~ /\.ht {
+-	#	deny all;
+-	#}
++	location /keepalived-metrics {
++	    proxy_pass http://localhost:9165/metrics;
++	}
++	location /node-metrics {
++	    proxy_pass http://localhost:9100/metrics;
++	}
++
++	location /nginx-metrics {
++	    proxy_pass http://localhost:9113/metrics;
++	}
++	location /mysql-metrics {
++	    proxy_pass http://localhost:9104/metrics;
++	}
++	location /bind-metrics {
++	    proxy_pass http://localhost:9119/metrics;
++	}
+ }
+ 
+-
+-# Virtual Host configuration for example.com
+-#
+-# You can move that to a different file under sites-available/ and symlink that
+-# to sites-enabled/ to enable it.
+-#
+-#server {
+-#	listen 80;
+-#	listen [::]:80;
+-#
+-#	server_name example.com;
+-#
+-#	root /var/www/example.com;
+-#	index index.html;
+-#
+-#	location / {
+-#		try_files $uri $uri/ =404;
+-#	}
+-#}
+
+changed: [vm2]
+--- before: /etc/nginx/sites-enabled/default
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmp_ry7mgi2/default.j2
+@@ -1,91 +1,32 @@
+-##
+-# You should look at the following URL's in order to grasp a solid understanding
+-# of Nginx configuration files in order to fully unleash the power of Nginx.
+-# https://www.nginx.com/resources/wiki/start/
+-# https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/
+-# https://wiki.debian.org/Nginx/DirectoryStructure
+-#
+-# In most cases, administrators will remove this file from sites-enabled/ and
+-# leave it as reference inside of sites-available where it will continue to be
+-# updated by the nginx packaging team.
+-#
+-# This file will automatically load configuration files provided by other
+-# applications, such as Drupal or Wordpress. These applications will be made
+-# available underneath a path with that package name, such as /drupal8.
+-#
+-# Please see /usr/share/doc/nginx-doc/examples/ for more detailed examples.
+-##
+-
+-# Default server configuration
+-#
+ server {
+ 	listen 80 default_server;
+-	listen [::]:80 default_server;
+-
+-	# SSL configuration
+-	#
+-	# listen 443 ssl default_server;
+-	# listen [::]:443 ssl default_server;
+-	#
+-	# Note: You should disable gzip for SSL traffic.
+-	# See: https://bugs.debian.org/773332
+-	#
+-	# Read up on ssl_ciphers to ensure a secure configuration.
+-	# See: https://bugs.debian.org/765782
+-	#
+-	# Self signed certs generated by the ssl-cert package
+-	# Don't use them in a production server!
+-	#
+-	# include snippets/snakeoil.conf;
+-
+-	root /var/www/html;
+-
+-	# Add index.php to the list if you are using PHP
+-	index index.html index.htm index.nginx-debian.html;
+-
+ 	server_name _;
+-
++	proxy_set_header Host $http_host;
++	large_client_header_buffers 4 16k;
++    
+ 	location / {
+-		# First attempt to serve request as file, then
+-		# as directory, then fall back to displaying a 404.
+-		try_files $uri $uri/ =404;
++	    proxy_pass http://localhost:9005;
+ 	}
+ 
+-	# pass PHP scripts to FastCGI server
+-	#
+-	#location ~ \.php$ {
+-	#	include snippets/fastcgi-php.conf;
+-	#
+-	#	# With php-fpm (or other unix sockets):
+-	#	fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+-	#	# With php-cgi (or other tcp sockets):
+-	#	fastcgi_pass 127.0.0.1:9000;
+-	#}
++	location /haproxy-metrics {
++	    proxy_pass http://localhost:9101/metrics;
++	}
+ 
+-	# deny access to .htaccess files, if Apache's document root
+-	# concurs with nginx's one
+-	#
+-	#location ~ /\.ht {
+-	#	deny all;
+-	#}
++	location /keepalived-metrics {
++	    proxy_pass http://localhost:9165/metrics;
++	}
++	location /node-metrics {
++	    proxy_pass http://localhost:9100/metrics;
++	}
++
++	location /nginx-metrics {
++	    proxy_pass http://localhost:9113/metrics;
++	}
++	location /mysql-metrics {
++	    proxy_pass http://localhost:9104/metrics;
++	}
++	location /bind-metrics {
++	    proxy_pass http://localhost:9119/metrics;
++	}
+ }
+ 
+-
+-# Virtual Host configuration for example.com
+-#
+-# You can move that to a different file under sites-available/ and symlink that
+-# to sites-enabled/ to enable it.
+-#
+-#server {
+-#	listen 80;
+-#	listen [::]:80;
+-#
+-#	server_name example.com;
+-#
+-#	root /var/www/example.com;
+-#	index index.html;
+-#
+-#	location / {
+-#		try_files $uri $uri/ =404;
+-#	}
+-#}
+
+changed: [vm1]
 
 TASK [nginx : Start and enable nginx service] **********************************
-ok: [vm2]
 ok: [vm1]
 ok: [vm3]
+ok: [vm2]
 
 TASK [nginx : Replace default nginx index page] ********************************
 --- before
@@ -1595,7 +1596,7 @@ TASK [nginx : Replace default nginx index page] ********************************
 +    </body>
 +</html>
 
-changed: [vm1]
+changed: [vm3]
 --- before
 +++ after: /home/johan/ica0002/roles/nginx/templates/index.html
 @@ -0,0 +1,8 @@
@@ -1621,11 +1622,11 @@ changed: [vm2]
 +    </body>
 +</html>
 
-changed: [vm3]
+changed: [vm1]
 
 TASK [nginx_exporter : Create configuration file] ******************************
 --- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpaztc9gjj/exporter.j2
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpv1enj8lr/exporter.j2
 @@ -0,0 +1,6 @@
 +server {
 +    listen 8080 default_server;
@@ -1635,9 +1636,9 @@ TASK [nginx_exporter : Create configuration file] ******************************
 +}
 \ No newline at end of file
 
-changed: [vm1]
+changed: [vm3]
 --- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpl69xsqxu/exporter.j2
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmp01v5lqd_/exporter.j2
 @@ -0,0 +1,6 @@
 +server {
 +    listen 8080 default_server;
@@ -1649,7 +1650,7 @@ changed: [vm1]
 
 changed: [vm2]
 --- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpwls2smzu/exporter.j2
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmptgdvvr2o/exporter.j2
 @@ -0,0 +1,6 @@
 +server {
 +    listen 8080 default_server;
@@ -1659,28 +1660,28 @@ changed: [vm2]
 +}
 \ No newline at end of file
 
-changed: [vm3]
+changed: [vm1]
 
 TASK [nginx_exporter : Flush handlers] *****************************************
 
 RUNNING HANDLER [nginx_exporter : Restart nginx] *******************************
-changed: [vm2]
-changed: [vm1]
 changed: [vm3]
+changed: [vm1]
+changed: [vm2]
 
 TASK [nginx_exporter : Install nginx exporter] *********************************
 The following NEW packages will be installed:
   prometheus-nginx-exporter
 0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
-changed: [vm2]
-The following NEW packages will be installed:
-  prometheus-nginx-exporter
-0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
 changed: [vm3]
 The following NEW packages will be installed:
   prometheus-nginx-exporter
 0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
 changed: [vm1]
+The following NEW packages will be installed:
+  prometheus-nginx-exporter
+0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
+changed: [vm2]
 
 TASK [nginx_exporter : Start and enable nginx exporter service] ****************
 ok: [vm1]
@@ -1699,19 +1700,19 @@ The following additional packages will be installed:
 The following NEW packages will be installed:
   iptables-persistent netfilter-persistent
 0 upgraded, 2 newly installed, 0 to remove and 140 not upgraded.
-changed: [vm2]
+changed: [vm1]
 The following additional packages will be installed:
   netfilter-persistent
 The following NEW packages will be installed:
   iptables-persistent netfilter-persistent
 0 upgraded, 2 newly installed, 0 to remove and 140 not upgraded.
-changed: [vm1]
+changed: [vm2]
 
 TASK [docker : Fix ssl bug for docker] *****************************************
 --- before: /etc/iptables/rules.v4
 +++ after: /home/johan/ica0002/roles/docker/files/iptables.mangle
 @@ -1,7 +1,8 @@
--# Generated by iptables-save v1.8.4 on Thu Jan 13 11:31:18 2022
+-# Generated by iptables-save v1.8.4 on Tue Jan 18 09:49:34 2022
 -*filter
 +*mangle
 +:PREROUTING ACCEPT [0:0]
@@ -1721,13 +1722,13 @@ TASK [docker : Fix ssl bug for docker] *****************************************
 +:POSTROUTING ACCEPT [0:0]
 +-A POSTROUTING -o ens3 -p tcp -m tcp --tcp-flags SYN,RST SYN -j TCPMSS --set-mss 1400 --clamp-mss-to-pmtu
  COMMIT
--# Completed on Thu Jan 13 11:31:18 2022
+-# Completed on Tue Jan 18 09:49:34 2022
 
-changed: [vm1]
+changed: [vm2]
 --- before: /etc/iptables/rules.v4
 +++ after: /home/johan/ica0002/roles/docker/files/iptables.mangle
 @@ -1,7 +1,8 @@
--# Generated by iptables-save v1.8.4 on Thu Jan 13 11:31:17 2022
+-# Generated by iptables-save v1.8.4 on Tue Jan 18 09:49:34 2022
 -*filter
 +*mangle
 +:PREROUTING ACCEPT [0:0]
@@ -1737,9 +1738,9 @@ changed: [vm1]
 +:POSTROUTING ACCEPT [0:0]
 +-A POSTROUTING -o ens3 -p tcp -m tcp --tcp-flags SYN,RST SYN -j TCPMSS --set-mss 1400 --clamp-mss-to-pmtu
  COMMIT
--# Completed on Thu Jan 13 11:31:17 2022
+-# Completed on Tue Jan 18 09:49:34 2022
 
-changed: [vm2]
+changed: [vm1]
 
 TASK [docker : Restore iptables] ***********************************************
 [WARNING]: Attempts to restore iptables state without rollback in case of
@@ -1793,7 +1794,7 @@ TASK [agama : Create agama directory] ******************************************
 +    "state": "directory"
  }
 
-changed: [vm1]
+changed: [vm2]
 --- before
 +++ after
 @@ -1,4 +1,4 @@
@@ -1803,23 +1804,23 @@ changed: [vm1]
 +    "state": "directory"
  }
 
-changed: [vm2]
+changed: [vm1]
 
 TASK [agama : Install agama] ***************************************************
-changed: [vm1]
 changed: [vm2]
+changed: [vm1]
 
 TASK [agama : Build agama docker image] ****************************************
-changed: [vm2]
 changed: [vm1]
+changed: [vm2]
 
 TASK [agama : Create two agama docker containers] ******************************
+changed: [vm1] => (item=None)
 changed: [vm2] => (item=None)
-changed: [vm1] => (item=None)
-changed: [vm1] => (item=None)
-changed: [vm1]
 changed: [vm2] => (item=None)
 changed: [vm2]
+changed: [vm1] => (item=None)
+changed: [vm1]
 
 PLAY [Grafana] *****************************************************************
 
@@ -1838,7 +1839,7 @@ TASK [docker : Fix ssl bug for docker] *****************************************
 --- before: /etc/iptables/rules.v4
 +++ after: /home/johan/ica0002/roles/docker/files/iptables.mangle
 @@ -1,7 +1,8 @@
--# Generated by iptables-save v1.8.4 on Thu Jan 13 11:33:43 2022
+-# Generated by iptables-save v1.8.4 on Tue Jan 18 09:51:35 2022
 -*filter
 +*mangle
 +:PREROUTING ACCEPT [0:0]
@@ -1848,7 +1849,7 @@ TASK [docker : Fix ssl bug for docker] *****************************************
 +:POSTROUTING ACCEPT [0:0]
 +-A POSTROUTING -o ens3 -p tcp -m tcp --tcp-flags SYN,RST SYN -j TCPMSS --set-mss 1400 --clamp-mss-to-pmtu
  COMMIT
--# Completed on Thu Jan 13 11:33:43 2022
+-# Completed on Tue Jan 18 09:51:35 2022
 
 changed: [vm3]
 
@@ -1903,7 +1904,7 @@ changed: [vm3]
 
 TASK [grafana : Add default dashboard config] **********************************
 --- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpjyn3h9f_/main_dashboard.yaml
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpmgg0i6b0/main_dashboard.yaml
 @@ -0,0 +1,11 @@
 +# # config file version
 +apiVersion: 1
@@ -5398,7 +5399,7 @@ changed: [vm3]
 
 TASK [grafana : Add datasource config] *****************************************
 --- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmptmedyf3x/main_datasource.yaml
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmp37xfjss_/main_datasource.yaml
 @@ -0,0 +1,25 @@
 +apiVersion: 1
 +
@@ -5468,7 +5469,7 @@ Suggested packages:
 The following NEW packages will be installed:
   haproxy liblua5.3-0
 0 upgraded, 2 newly installed, 0 to remove and 140 not upgraded.
-changed: [vm1]
+changed: [vm2]
 The following additional packages will be installed:
   liblua5.3-0
 Suggested packages:
@@ -5476,11 +5477,11 @@ Suggested packages:
 The following NEW packages will be installed:
   haproxy liblua5.3-0
 0 upgraded, 2 newly installed, 0 to remove and 140 not upgraded.
-changed: [vm2]
+changed: [vm1]
 
 TASK [haproxy : haproxy configuration file] ************************************
 --- before: /etc/haproxy/haproxy.cfg
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpiq9sqfrq/haproxy.cfg.j2
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmph183ilv5/haproxy.cfg.j2
 @@ -7,15 +7,6 @@
  	user haproxy
  	group haproxy
@@ -5507,14 +5508,14 @@ TASK [haproxy : haproxy configuration file] ************************************
 +    stats enable
 +    stats uri /stats
 +
-+        server s1 vm1:8001 check
-+        server s2 vm1:8002 check
-+        server s3 vm2:8001 check
-+        server s4 vm2:8002 check
++        server s1 vm1:9005 check
++        server s2 vm1:9009 check
++        server s3 vm2:9005 check
++        server s4 vm2:9009 check
 
 changed: [vm2]
 --- before: /etc/haproxy/haproxy.cfg
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmp5u6y1j8s/haproxy.cfg.j2
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmprbhllne9/haproxy.cfg.j2
 @@ -7,15 +7,6 @@
  	user haproxy
  	group haproxy
@@ -5541,10 +5542,10 @@ changed: [vm2]
 +    stats enable
 +    stats uri /stats
 +
-+        server s1 vm1:8001 check
-+        server s2 vm1:8002 check
-+        server s3 vm2:8001 check
-+        server s4 vm2:8002 check
++        server s1 vm1:9005 check
++        server s2 vm1:9009 check
++        server s3 vm2:9005 check
++        server s4 vm2:9009 check
 
 changed: [vm1]
 
@@ -5556,15 +5557,15 @@ TASK [haproxy : install haproxy prometheus exporter] ***************************
 The following NEW packages will be installed:
   prometheus-haproxy-exporter
 0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
-changed: [vm2]
+changed: [vm1]
 The following NEW packages will be installed:
   prometheus-haproxy-exporter
 0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
-changed: [vm1]
+changed: [vm2]
 
 TASK [haproxy : haproxy prometheus exporter configuration file] ****************
 --- before: /etc/default/prometheus-haproxy-exporter
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpijc6vcpy/prometheus-haproxy-exporter.j2
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmp__n8k_4z/prometheus-haproxy-exporter.j2
 @@ -1,35 +1 @@
 -# Set the command-line arguments to pass to the server.
 -# Due to shell scaping, to pass backslashes for regexes, you need to double
@@ -5606,7 +5607,7 @@ TASK [haproxy : haproxy prometheus exporter configuration file] ****************
 
 changed: [vm1]
 --- before: /etc/default/prometheus-haproxy-exporter
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpbm33kqhg/prometheus-haproxy-exporter.j2
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmp2ze3oyxr/prometheus-haproxy-exporter.j2
 @@ -1,35 +1 @@
 -# Set the command-line arguments to pass to the server.
 -# Due to shell scaping, to pass backslashes for regexes, you need to double
@@ -5653,8 +5654,8 @@ ok: [vm1]
 ok: [vm2]
 
 TASK [keepalived : Create keepalived_script user] ******************************
-changed: [vm2]
 changed: [vm1]
+changed: [vm2]
 
 TASK [keepalived : Install keepalived] *****************************************
 The following additional packages will be installed:
@@ -5679,47 +5680,12 @@ The following NEW packages will be installed:
 changed: [vm2]
 
 TASK [keepalived : Start and enable keepalived service] ************************
-changed: [vm1]
 changed: [vm2]
+changed: [vm1]
 
 TASK [keepalived : keepalived configuration] ***********************************
 --- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpch7erl8r/keepalived.conf.j2
-@@ -0,0 +1,29 @@
-+global_defs {
-+    enable_script_security
-+    script_user keepalived_script
-+}
-+
-+vrrp_script check_haproxy {
-+    script "/home/keepalived_script/check_haproxy"
-+    weight 20
-+    interval 1
-+}
-+
-+vrrp_instance main {
-+    interface ens3
-+    virtual_router_id 132
-+    advert_int 1
-+    priority 100
-+
-+    virtual_ipaddress {
-+        192.168.100.16/24
-+    }
-+
-+    unicast_peer {
-+        192.168.42.138
-+    }
-+
-+    track_script {
-+        check_haproxy
-+    }
-+}
-\ No newline at end of file
-
-changed: [vm1]
---- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmppya875pp/keepalived.conf.j2
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpw__96l55/keepalived.conf.j2
 @@ -0,0 +1,29 @@
 +global_defs {
 +    enable_script_security
@@ -5739,11 +5705,11 @@ changed: [vm1]
 +    priority 99
 +
 +    virtual_ipaddress {
-+        192.168.100.16/24
++        192.168.100.194/24
 +    }
 +
 +    unicast_peer {
-+        192.168.42.16
++        192.168.42.194
 +    }
 +
 +    track_script {
@@ -5753,19 +5719,45 @@ changed: [vm1]
 \ No newline at end of file
 
 changed: [vm2]
-
-TASK [keepalived : check haproxy script] ***************************************
 --- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmp96gptu01/check_haproxy.j2
-@@ -0,0 +1,3 @@
-+#!/bin/bash
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpttjl42db/keepalived.conf.j2
+@@ -0,0 +1,29 @@
++global_defs {
++    enable_script_security
++    script_user keepalived_script
++}
 +
-+ss -ntl | grep -q ':88 '
++vrrp_script check_haproxy {
++    script "/home/keepalived_script/check_haproxy"
++    weight 20
++    interval 1
++}
++
++vrrp_instance main {
++    interface ens3
++    virtual_router_id 132
++    advert_int 1
++    priority 100
++
++    virtual_ipaddress {
++        192.168.100.194/24
++    }
++
++    unicast_peer {
++        192.168.42.189
++    }
++
++    track_script {
++        check_haproxy
++    }
++}
 \ No newline at end of file
 
 changed: [vm1]
+
+TASK [keepalived : check haproxy script] ***************************************
 --- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpgoxquoox/check_haproxy.j2
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpd0qnf24q/check_haproxy.j2
 @@ -0,0 +1,3 @@
 +#!/bin/bash
 +
@@ -5773,6 +5765,15 @@ changed: [vm1]
 \ No newline at end of file
 
 changed: [vm2]
+--- before
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpr4zqcakt/check_haproxy.j2
+@@ -0,0 +1,3 @@
++#!/bin/bash
++
++ss -ntl | grep -q ':88 '
+\ No newline at end of file
+
+changed: [vm1]
 
 TASK [keepalived : unarchive keepalived-exporter] ******************************
 changed: [vm2]
@@ -5780,24 +5781,7 @@ changed: [vm1]
 
 TASK [keepalived : Copy keepalived-exporter service] ***************************
 --- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmp_ij1drh6/keepalived-exporter.service
-@@ -0,0 +1,11 @@
-+[Unit]
-+Description=keepalived-exporter service
-+Documentation=https://github.com/cafebazaar/keepalived-exporter
-+After=network-online.target
-+
-+[Service]
-+User=root
-+ExecStart=/usr/local/bin/keepalived-exporter-1.2.0.linux-amd64/keepalived-exporter
-+
-+[Install]
-+WantedBy=multi-user.target
-\ No newline at end of file
-
-changed: [vm1]
---- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmp9npo9ow0/keepalived-exporter.service
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpcitwvu36/keepalived-exporter.service
 @@ -0,0 +1,11 @@
 +[Unit]
 +Description=keepalived-exporter service
@@ -5813,26 +5797,43 @@ changed: [vm1]
 \ No newline at end of file
 
 changed: [vm2]
+--- before
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpr1_s_sfh/keepalived-exporter.service
+@@ -0,0 +1,11 @@
++[Unit]
++Description=keepalived-exporter service
++Documentation=https://github.com/cafebazaar/keepalived-exporter
++After=network-online.target
++
++[Service]
++User=root
++ExecStart=/usr/local/bin/keepalived-exporter-1.2.0.linux-amd64/keepalived-exporter
++
++[Install]
++WantedBy=multi-user.target
+\ No newline at end of file
+
+changed: [vm1]
 
 TASK [keepalived : Start and enable keepalived-exporter service] ***************
-changed: [vm1]
 changed: [vm2]
+changed: [vm1]
 
 RUNNING HANDLER [haproxy : restart haproxy] ************************************
-changed: [vm1]
 changed: [vm2]
+changed: [vm1]
 
 RUNNING HANDLER [haproxy : restart haproxy prometheus exporter] ****************
-changed: [vm1]
 changed: [vm2]
+changed: [vm1]
 
 RUNNING HANDLER [keepalived : restart keepalived] ******************************
-changed: [vm1]
 changed: [vm2]
+changed: [vm1]
 
 RUNNING HANDLER [keepalived : Daemon reload] ***********************************
-changed: [vm1]
 changed: [vm2]
+changed: [vm1]
 
 PLAY [influxdb] ****************************************************************
 
@@ -5861,7 +5862,7 @@ changed: [vm3]
 
 TASK [influxdb : Create influxdb config file] **********************************
 --- before: /etc/influxdb/influxdb.conf
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpib_lriga/influxdb.conf
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpor5h76xg/influxdb.conf
 @@ -1,596 +1,22 @@
 -### Welcome to the InfluxDB configuration file.
 -
@@ -6479,7 +6480,7 @@ changed: [vm3]
 
 TASK [influxdb_exporter : Create stats exporter service] ***********************
 --- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmp_7n_7t7x/prometheus-influxdb-stats-exporter.service
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmptfz7zutg/prometheus-influxdb-stats-exporter.service
 @@ -0,0 +1,11 @@
 +[Unit]
 +Description=Prometheus Influxdb stats exporter
@@ -6515,11 +6516,11 @@ changed: [vm3]
 
 TASK [influxdb_backup : Create cron tab for creating backups] ******************
 --- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmplqs1tj3z/influxdb-backup
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmp4yfynebz/influxdb-backup
 @@ -0,0 +1,3 @@
 +30 0 * * *  backup rm -rf /home/backup/influxdb/*; influxd backup -portable -database telegraf /home/backup/influxdb
-+40 0 * * 0  backup duplicity --no-encryption full /home/backup/influxdb/ rsync://jp1995@backup.asdf.xyz//home/jp1995/influxdb
-+40 0 * * 1-6  backup duplicity --no-encryption incremental /home/backup/influxdb/ rsync://jp1995@backup.asdf.xyz//home/jp1995/influxdb
++40 0 * * 0  backup duplicity --no-encryption --allow-source-mismatch full /home/backup/influxdb/ rsync://jp1995@backup.asdf.xyz//home/jp1995/influxdb
++40 0 * * 1-6  backup duplicity --no-encryption --allow-source-mismatch incremental /home/backup/influxdb/ rsync://jp1995@backup.asdf.xyz//home/jp1995/influxdb
 
 changed: [vm3]
 
@@ -6565,7 +6566,7 @@ changed: [vm3]
 
 TASK [pinger : Copy pinger configuration] **************************************
 --- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmp_zs4sfj8/pinger.conf.j2
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmp5yx00m6t/pinger.conf.j2
 @@ -0,0 +1,3 @@
 +database_url=http://influxdb:8086
 +database_name=latency
@@ -6576,7 +6577,7 @@ changed: [vm3]
 
 TASK [pinger : Copy pinger script] *********************************************
 --- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmp_g9rapig/pinger.sh
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpvwu1w8xd/pinger.sh
 @@ -0,0 +1,26 @@
 +#!/bin/bash
 +
@@ -6610,7 +6611,7 @@ changed: [vm3]
 
 TASK [pinger : Copy pinger service] ********************************************
 --- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpl5cz0nyo/pinger.service
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpktbvj7_e/pinger.service
 @@ -0,0 +1,11 @@
 +[Unit]
 +Description=Ping service to test network connection and log it
@@ -6640,12 +6641,12 @@ PLAY [rsyslog] *****************************************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [vm3]
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [rsyslog : Create rsyslog conf file] **************************************
 --- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpvjjs4crj/10-telegraf.conf
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpetkj8rrm/10-telegraf.conf.j2
 @@ -0,0 +1,6 @@
 +$ActionQueueType LinkedList # use asynchronous processing
 +$ActionQueueFileName srvrfwd # set file name, also enables disk mode
@@ -6654,9 +6655,9 @@ TASK [rsyslog : Create rsyslog conf file] **************************************
 +
 +*.* @influxdb:6514;RSYSLOG_SyslogProtocol23Format
 
-changed: [vm3]
+changed: [vm2]
 --- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpuak_6aoe/10-telegraf.conf
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpqt6im86b/10-telegraf.conf.j2
 @@ -0,0 +1,6 @@
 +$ActionQueueType LinkedList # use asynchronous processing
 +$ActionQueueFileName srvrfwd # set file name, also enables disk mode
@@ -6667,7 +6668,7 @@ changed: [vm3]
 
 changed: [vm1]
 --- before
-+++ after: /home/johan/.ansible/tmp/ansible-local-4140sexel1v0/tmpff3y7556/10-telegraf.conf
++++ after: /home/johan/.ansible/tmp/ansible-local-3934qsnhfso2/tmpbdm7igfs/10-telegraf.conf.j2
 @@ -0,0 +1,6 @@
 +$ActionQueueType LinkedList # use asynchronous processing
 +$ActionQueueFileName srvrfwd # set file name, also enables disk mode
@@ -6676,22 +6677,22 @@ changed: [vm1]
 +
 +*.* @influxdb:6514;RSYSLOG_SyslogProtocol23Format
 
-changed: [vm2]
+changed: [vm3]
 
 RUNNING HANDLER [rsyslog : Restart rsyslog] ************************************
 changed: [vm2]
-changed: [vm3]
 changed: [vm1]
+changed: [vm3]
 
 RUNNING HANDLER [rsyslog : Restart telegraf] ***********************************
-skipping: [vm1]
 skipping: [vm2]
+skipping: [vm1]
 changed: [vm3]
 
 PLAY RECAP *********************************************************************
-vm1                        : ok=86   changed=67   unreachable=0    failed=0    skipped=5    rescued=0    ignored=0   
+vm1                        : ok=85   changed=67   unreachable=0    failed=0    skipped=5    rescued=0    ignored=0   
 vm2                        : ok=84   changed=67   unreachable=0    failed=0    skipped=5    rescued=0    ignored=0   
-vm3                        : ok=89   changed=69   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+vm3                        : ok=89   changed=70   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
 + ansible-playbook infra.yaml --diff
 
@@ -6707,29 +6708,24 @@ ok: [vm3]
 ok: [vm2]
 ok: [vm1]
 
-TASK [init : Pause for 20 sec] *************************************************
-Pausing for 20 seconds
-(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
-ok: [vm1]
-
 TASK [init : hostname] *********************************************************
-ok: [vm3]
-ok: [vm2]
 ok: [vm1]
+ok: [vm2]
+ok: [vm3]
 
 TASK [backup : Create user backup and generate ssh key] ************************
+ok: [vm1]
 ok: [vm2]
 ok: [vm3]
-ok: [vm1]
 
 TASK [backup : Create /home/backup/restore directory] **************************
-ok: [vm1]
 ok: [vm3]
+ok: [vm1]
 ok: [vm2]
 
 TASK [backup : Install duplicity] **********************************************
-ok: [vm3]
 ok: [vm2]
+ok: [vm3]
 ok: [vm1]
 
 TASK [backup : Create known_hosts file] ****************************************
@@ -6745,24 +6741,24 @@ ok: [vm2]
 ok: [vm1]
 
 TASK [bind : Install bind9] ****************************************************
-ok: [vm3]
 ok: [vm2]
+ok: [vm3]
 ok: [vm1]
 
 TASK [bind : install python3-dnspython] ****************************************
-ok: [vm3]
 ok: [vm1]
+ok: [vm3]
 ok: [vm2]
 
 TASK [bind : Start and enable bind9 service] ***********************************
 ok: [vm3]
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [bind : Configure DNS forwarders] *****************************************
 ok: [vm3]
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [bind : Configure DNS master zone] ****************************************
 skipping: [vm1]
@@ -6776,25 +6772,25 @@ ok: [vm3]
 
 TASK [bind : Reference master zone] ********************************************
 ok: [vm3]
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [bind_exporter : Install bind9 exporter] **********************************
-ok: [vm3]
 ok: [vm2]
+ok: [vm3]
 ok: [vm1]
 
 TASK [bind_exporter : Start and enable bind exporter service] ******************
 ok: [vm3]
-ok: [vm2]
 ok: [vm1]
+ok: [vm2]
 
 PLAY [dns_resolved] ************************************************************
 
 TASK [Gathering Facts] *********************************************************
+ok: [vm2]
 ok: [vm3]
 ok: [vm1]
-ok: [vm2]
 
 TASK [dns_resolved : Stop and disable systemd-resolved] ************************
 ok: [vm1]
@@ -6803,8 +6799,8 @@ ok: [vm3]
 
 TASK [dns_resolved : Create correct resolv.conf file] **************************
 ok: [vm1]
-ok: [vm2]
 ok: [vm3]
+ok: [vm2]
 
 PLAY [dns_records] *************************************************************
 
@@ -6824,11 +6820,14 @@ ok: [vm3] => (item={'key': 'mysql1', 'value': 'vm1'})
 ok: [vm3] => (item={'key': 'mysql2', 'value': 'vm2'})
 ok: [vm3] => (item={'key': 'web1', 'value': 'vm1'})
 ok: [vm3] => (item={'key': 'web2', 'value': 'vm2'})
+ok: [vm3] => (item={'key': 'ns_master', 'value': 'vm3'})
+ok: [vm3] => (item={'key': 'ns_slave1', 'value': 'vm1'})
+ok: [vm3] => (item={'key': 'ns_slave2', 'value': 'vm2'})
 ok: [vm3] => (item={'key': 'haproxy1', 'value': 'vm1'})
 ok: [vm3] => (item={'key': 'haproxy2', 'value': 'vm2'})
-ok: [vm3] => (item={'key': 'prometheus', 'value': 'vm3'})
 ok: [vm3] => (item={'key': 'keepalive1', 'value': 'vm1'})
 ok: [vm3] => (item={'key': 'keepalive2', 'value': 'vm2'})
+ok: [vm3] => (item={'key': 'prometheus', 'value': 'vm3'})
 ok: [vm3] => (item={'key': 'pinger', 'value': 'vm3'})
 
 PLAY [Prometheus] **************************************************************
@@ -6855,24 +6854,24 @@ ok: [vm2]
 ok: [vm1]
 
 TASK [mysql : Install mysql server and pymysql] ********************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [mysql : Start and enable mysql service] **********************************
 ok: [vm1]
 ok: [vm2]
 
 TASK [mysql : Create a mysql database for agama] *******************************
-ok: [vm2]
 ok: [vm1]
+ok: [vm2]
 
 TASK [mysql : Create a mysql user agama] ***************************************
 ok: [vm2]
 ok: [vm1]
 
 TASK [mysql : Bind mysql server to public interface] ***************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [mysql : Flush handlers] **************************************************
 
@@ -6889,8 +6888,8 @@ skipping: [vm2]
 ok: [vm1]
 
 TASK [mysql_exporter : Install MySQL exporter] *********************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [mysql_exporter : export replication metrics] *****************************
 ok: [vm2]
@@ -6901,8 +6900,8 @@ ok: [vm2]
 ok: [vm1]
 
 TASK [mysql_exporter : Create user exporter] ***********************************
-ok: [vm2]
 ok: [vm1]
+ok: [vm2]
 
 TASK [mysql_exporter : Pause for 10 sec] ***************************************
 skipping: [vm1]
@@ -6912,57 +6911,57 @@ ok: [vm2]
 ok: [vm1]
 
 TASK [mysql_backup : Create /home/backup/mysql directory] **********************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [mysql_backup : Create a mysql user backup] *******************************
 ok: [vm1]
 ok: [vm2]
 
 TASK [mysql_backup : Create configuration file] ********************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [mysql_backup : Create cron tab for creating backups] *********************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 PLAY [All servers] *************************************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [vm3]
-ok: [vm2]
 ok: [vm1]
+ok: [vm2]
 
 TASK [node_exporter : Install prometheus node exporters] ***********************
-ok: [vm3]
 ok: [vm2]
+ok: [vm3]
 ok: [vm1]
 
 TASK [node_exporter : Start and enable node exporters service] *****************
+ok: [vm2]
 ok: [vm1]
 ok: [vm3]
-ok: [vm2]
 
 TASK [nginx : Install nginx] ***************************************************
+ok: [vm1]
 ok: [vm3]
 ok: [vm2]
-ok: [vm1]
 
 TASK [nginx : Replace the nginx server configuration file] *********************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 ok: [vm3]
 
 TASK [nginx : Start and enable nginx service] **********************************
 ok: [vm1]
-ok: [vm3]
 ok: [vm2]
+ok: [vm3]
 
 TASK [nginx : Replace default nginx index page] ********************************
-ok: [vm1]
-ok: [vm3]
 ok: [vm2]
+ok: [vm3]
+ok: [vm1]
 
 TASK [nginx_exporter : Create configuration file] ******************************
 ok: [vm2]
@@ -6972,8 +6971,8 @@ ok: [vm1]
 TASK [nginx_exporter : Flush handlers] *****************************************
 
 TASK [nginx_exporter : Install nginx exporter] *********************************
-ok: [vm3]
 ok: [vm2]
+ok: [vm3]
 ok: [vm1]
 
 TASK [nginx_exporter : Start and enable nginx exporter service] ****************
@@ -6984,16 +6983,16 @@ ok: [vm2]
 PLAY [Web server] **************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [docker : install iptables-persistent] ************************************
 ok: [vm2]
 ok: [vm1]
 
 TASK [docker : Fix ssl bug for docker] *****************************************
-ok: [vm2]
 ok: [vm1]
+ok: [vm2]
 
 TASK [docker : Restore iptables] ***********************************************
 [WARNING]: Attempts to restore iptables state without rollback in case of
@@ -7010,12 +7009,12 @@ ok: [vm2]
 ok: [vm1]
 
 TASK [docker : install docker package] *****************************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [docker : Start and enable docker service] ********************************
-ok: [vm2]
 ok: [vm1]
+ok: [vm2]
 
 TASK [agama : Create agama directory] ******************************************
 ok: [vm1]
@@ -7030,12 +7029,12 @@ ok: [vm2]
 ok: [vm1]
 
 TASK [agama : Create two agama docker containers] ******************************
-ok: [vm1] => (item=None)
 ok: [vm2] => (item=None)
 ok: [vm1] => (item=None)
-ok: [vm1]
 ok: [vm2] => (item=None)
 ok: [vm2]
+ok: [vm1] => (item=None)
+ok: [vm1]
 
 PLAY [Grafana] *****************************************************************
 
@@ -7090,16 +7089,16 @@ ok: [vm3]
 PLAY [HA] **********************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [haproxy : Install haproxy] ***********************************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [haproxy : haproxy configuration file] ************************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [haproxy : Start and enable haproxy service] ******************************
 ok: [vm1]
@@ -7118,28 +7117,28 @@ ok: [vm1]
 ok: [vm2]
 
 TASK [keepalived : Create keepalived_script user] ******************************
-ok: [vm2]
 ok: [vm1]
+ok: [vm2]
 
 TASK [keepalived : Install keepalived] *****************************************
-ok: [vm2]
 ok: [vm1]
+ok: [vm2]
 
 TASK [keepalived : Start and enable keepalived service] ************************
-ok: [vm2]
 ok: [vm1]
+ok: [vm2]
 
 TASK [keepalived : keepalived configuration] ***********************************
-ok: [vm2]
 ok: [vm1]
+ok: [vm2]
 
 TASK [keepalived : check haproxy script] ***************************************
 ok: [vm1]
 ok: [vm2]
 
 TASK [keepalived : unarchive keepalived-exporter] ******************************
-ok: [vm2]
 ok: [vm1]
+ok: [vm2]
 
 TASK [keepalived : Copy keepalived-exporter service] ***************************
 ok: [vm2]
@@ -7219,34 +7218,34 @@ ok: [vm3]
 PLAY [rsyslog] *****************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [vm3]
 ok: [vm2]
+ok: [vm3]
 ok: [vm1]
 
 TASK [rsyslog : Create rsyslog conf file] **************************************
+ok: [vm2]
 ok: [vm1]
 ok: [vm3]
-ok: [vm2]
 
 PLAY RECAP *********************************************************************
-vm1                        : ok=73   changed=0    unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
+vm1                        : ok=72   changed=0    unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
 vm2                        : ok=72   changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
 vm3                        : ok=75   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
 + ansible all -b -m reboot -a test_command=uptime
-vm2 | CHANGED => {
-    "changed": true,
-    "elapsed": 34,
-    "rebooted": true
-}
 vm3 | CHANGED => {
     "changed": true,
-    "elapsed": 37,
+    "elapsed": 39,
+    "rebooted": true
+}
+vm2 | CHANGED => {
+    "changed": true,
+    "elapsed": 45,
     "rebooted": true
 }
 vm1 | CHANGED => {
     "changed": true,
-    "elapsed": 45,
+    "elapsed": 49,
     "rebooted": true
 }
 + ansible-playbook infra.yaml --diff
@@ -7254,61 +7253,56 @@ vm1 | CHANGED => {
 PLAY [Init] ********************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [vm1]
-ok: [vm2]
 ok: [vm3]
+ok: [vm2]
+ok: [vm1]
 
 TASK [init : Update apt cache] *************************************************
 ok: [vm2]
-ok: [vm1]
 ok: [vm3]
-
-TASK [init : Pause for 20 sec] *************************************************
-Pausing for 20 seconds
-(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
 ok: [vm1]
 
 TASK [init : hostname] *********************************************************
-ok: [vm1]
 ok: [vm2]
 ok: [vm3]
+ok: [vm1]
 
 TASK [backup : Create user backup and generate ssh key] ************************
 ok: [vm3]
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [backup : Create /home/backup/restore directory] **************************
-ok: [vm1]
-ok: [vm3]
 ok: [vm2]
+ok: [vm3]
+ok: [vm1]
 
 TASK [backup : Install duplicity] **********************************************
-ok: [vm3]
 ok: [vm2]
+ok: [vm3]
 ok: [vm1]
 
 TASK [backup : Create known_hosts file] ****************************************
-ok: [vm1]
-ok: [vm2]
 ok: [vm3]
+ok: [vm2]
+ok: [vm1]
 
 PLAY [DNS server] **************************************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [vm3]
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [bind : Install bind9] ****************************************************
-ok: [vm1]
 ok: [vm2]
 ok: [vm3]
+ok: [vm1]
 
 TASK [bind : install python3-dnspython] ****************************************
 ok: [vm3]
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [bind : Start and enable bind9 service] ***********************************
 ok: [vm2]
@@ -7316,9 +7310,9 @@ ok: [vm3]
 ok: [vm1]
 
 TASK [bind : Configure DNS forwarders] *****************************************
+ok: [vm3]
 ok: [vm2]
 ok: [vm1]
-ok: [vm3]
 
 TASK [bind : Configure DNS master zone] ****************************************
 skipping: [vm1]
@@ -7331,14 +7325,14 @@ skipping: [vm2]
 ok: [vm3]
 
 TASK [bind : Reference master zone] ********************************************
+ok: [vm2]
 ok: [vm3]
 ok: [vm1]
-ok: [vm2]
 
 TASK [bind_exporter : Install bind9 exporter] **********************************
+ok: [vm2]
 ok: [vm1]
 ok: [vm3]
-ok: [vm2]
 
 TASK [bind_exporter : Start and enable bind exporter service] ******************
 ok: [vm3]
@@ -7348,18 +7342,18 @@ ok: [vm2]
 PLAY [dns_resolved] ************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [vm1]
-ok: [vm2]
 ok: [vm3]
+ok: [vm2]
+ok: [vm1]
 
 TASK [dns_resolved : Stop and disable systemd-resolved] ************************
 ok: [vm2]
-ok: [vm1]
 ok: [vm3]
+ok: [vm1]
 
 TASK [dns_resolved : Create correct resolv.conf file] **************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 ok: [vm3]
 
 PLAY [dns_records] *************************************************************
@@ -7380,11 +7374,14 @@ ok: [vm3] => (item={'key': 'mysql1', 'value': 'vm1'})
 ok: [vm3] => (item={'key': 'mysql2', 'value': 'vm2'})
 ok: [vm3] => (item={'key': 'web1', 'value': 'vm1'})
 ok: [vm3] => (item={'key': 'web2', 'value': 'vm2'})
+ok: [vm3] => (item={'key': 'ns_master', 'value': 'vm3'})
+ok: [vm3] => (item={'key': 'ns_slave1', 'value': 'vm1'})
+ok: [vm3] => (item={'key': 'ns_slave2', 'value': 'vm2'})
 ok: [vm3] => (item={'key': 'haproxy1', 'value': 'vm1'})
 ok: [vm3] => (item={'key': 'haproxy2', 'value': 'vm2'})
-ok: [vm3] => (item={'key': 'prometheus', 'value': 'vm3'})
 ok: [vm3] => (item={'key': 'keepalive1', 'value': 'vm1'})
 ok: [vm3] => (item={'key': 'keepalive2', 'value': 'vm2'})
+ok: [vm3] => (item={'key': 'prometheus', 'value': 'vm3'})
 ok: [vm3] => (item={'key': 'pinger', 'value': 'vm3'})
 
 PLAY [Prometheus] **************************************************************
@@ -7411,20 +7408,20 @@ ok: [vm2]
 ok: [vm1]
 
 TASK [mysql : Install mysql server and pymysql] ********************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [mysql : Start and enable mysql service] **********************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [mysql : Create a mysql database for agama] *******************************
-ok: [vm2]
 ok: [vm1]
+ok: [vm2]
 
 TASK [mysql : Create a mysql user agama] ***************************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [mysql : Bind mysql server to public interface] ***************************
 ok: [vm2]
@@ -7433,8 +7430,8 @@ ok: [vm1]
 TASK [mysql : Flush handlers] **************************************************
 
 TASK [mysql : Create a mysql user replication] *********************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [mysql : MySQL replica read only mode ON] *********************************
 skipping: [vm1]
@@ -7445,39 +7442,39 @@ skipping: [vm2]
 ok: [vm1]
 
 TASK [mysql_exporter : Install MySQL exporter] *********************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [mysql_exporter : export replication metrics] *****************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [mysql_exporter : Create configuration file] ******************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [mysql_exporter : Create user exporter] ***********************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [mysql_exporter : Pause for 10 sec] ***************************************
 skipping: [vm1]
 
 TASK [mysql_exporter : Start and enable mysql exporter service] ****************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [mysql_backup : Create /home/backup/mysql directory] **********************
 ok: [vm1]
 ok: [vm2]
 
 TASK [mysql_backup : Create a mysql user backup] *******************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [mysql_backup : Create configuration file] ********************************
-ok: [vm2]
 ok: [vm1]
+ok: [vm2]
 
 TASK [mysql_backup : Create cron tab for creating backups] *********************
 ok: [vm1]
@@ -7486,70 +7483,70 @@ ok: [vm2]
 PLAY [All servers] *************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [vm1]
-ok: [vm3]
 ok: [vm2]
+ok: [vm3]
+ok: [vm1]
 
 TASK [node_exporter : Install prometheus node exporters] ***********************
 ok: [vm3]
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [node_exporter : Start and enable node exporters service] *****************
+ok: [vm2]
 ok: [vm3]
 ok: [vm1]
-ok: [vm2]
 
 TASK [nginx : Install nginx] ***************************************************
-ok: [vm1]
 ok: [vm3]
 ok: [vm2]
+ok: [vm1]
 
 TASK [nginx : Replace the nginx server configuration file] *********************
 ok: [vm2]
-ok: [vm1]
 ok: [vm3]
+ok: [vm1]
 
 TASK [nginx : Start and enable nginx service] **********************************
-ok: [vm1]
-ok: [vm3]
 ok: [vm2]
+ok: [vm3]
+ok: [vm1]
 
 TASK [nginx : Replace default nginx index page] ********************************
-ok: [vm2]
 ok: [vm1]
+ok: [vm2]
 ok: [vm3]
 
 TASK [nginx_exporter : Create configuration file] ******************************
+ok: [vm3]
 ok: [vm1]
 ok: [vm2]
-ok: [vm3]
 
 TASK [nginx_exporter : Flush handlers] *****************************************
 
 TASK [nginx_exporter : Install nginx exporter] *********************************
-ok: [vm1]
 ok: [vm3]
 ok: [vm2]
+ok: [vm1]
 
 TASK [nginx_exporter : Start and enable nginx exporter service] ****************
-ok: [vm1]
-ok: [vm2]
 ok: [vm3]
+ok: [vm2]
+ok: [vm1]
 
 PLAY [Web server] **************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [docker : install iptables-persistent] ************************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [docker : Fix ssl bug for docker] *****************************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [docker : Restore iptables] ***********************************************
 [WARNING]: Attempts to restore iptables state without rollback in case of
@@ -7566,32 +7563,32 @@ ok: [vm1]
 ok: [vm2]
 
 TASK [docker : install docker package] *****************************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [docker : Start and enable docker service] ********************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [agama : Create agama directory] ******************************************
-ok: [vm2]
 ok: [vm1]
+ok: [vm2]
 
 TASK [agama : Install agama] ***************************************************
 ok: [vm2]
 ok: [vm1]
 
 TASK [agama : Build agama docker image] ****************************************
-ok: [vm2]
 ok: [vm1]
+ok: [vm2]
 
 TASK [agama : Create two agama docker containers] ******************************
-ok: [vm1] => (item=None)
 ok: [vm2] => (item=None)
 ok: [vm1] => (item=None)
-ok: [vm1]
 ok: [vm2] => (item=None)
 ok: [vm2]
+ok: [vm1] => (item=None)
+ok: [vm1]
 
 PLAY [Grafana] *****************************************************************
 
@@ -7646,12 +7643,12 @@ ok: [vm3]
 PLAY [HA] **********************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [haproxy : Install haproxy] ***********************************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [haproxy : haproxy configuration file] ************************************
 ok: [vm1]
@@ -7662,24 +7659,24 @@ ok: [vm1]
 ok: [vm2]
 
 TASK [haproxy : install haproxy prometheus exporter] ***************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [haproxy : haproxy prometheus exporter configuration file] ****************
 ok: [vm1]
 ok: [vm2]
 
 TASK [haproxy : start and enable haproxy prometheus exporter] ******************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [keepalived : Create keepalived_script user] ******************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [keepalived : Install keepalived] *****************************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [keepalived : Start and enable keepalived service] ************************
 ok: [vm1]
@@ -7690,16 +7687,16 @@ ok: [vm2]
 ok: [vm1]
 
 TASK [keepalived : check haproxy script] ***************************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [keepalived : unarchive keepalived-exporter] ******************************
 ok: [vm2]
 ok: [vm1]
 
 TASK [keepalived : Copy keepalived-exporter service] ***************************
-ok: [vm1]
 ok: [vm2]
+ok: [vm1]
 
 TASK [keepalived : Start and enable keepalived-exporter service] ***************
 ok: [vm2]
@@ -7775,19 +7772,19 @@ ok: [vm3]
 PLAY [rsyslog] *****************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [vm3]
 ok: [vm2]
+ok: [vm3]
 ok: [vm1]
 
 TASK [rsyslog : Create rsyslog conf file] **************************************
-ok: [vm3]
 ok: [vm1]
 ok: [vm2]
+ok: [vm3]
 
 PLAY RECAP *********************************************************************
-vm1                        : ok=73   changed=0    unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
+vm1                        : ok=72   changed=0    unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
 vm2                        : ok=72   changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
 vm3                        : ok=75   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
 + date
-Thu 13 Jan 13:41:05 EET 2022
+Tue 18 Jan 11:58:52 EET 2022
