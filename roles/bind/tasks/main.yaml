@@ -37,7 +37,7 @@
   ansible.builtin.template:
     src: ../templates/db.asdf.reverse
     dest: /var/cache/bind/db.{{ startup_domain }}.reverse
-    #force: no
+    force: no
   notify:
     - Restart bind9
     - rndc reload
