@@ -86,11 +86,19 @@ haproxy_port: 88
 
 influxdb_port: 6514
 grafana_port: 3000
-agama_port: 9005
+agama_port: 9006
 agama_stride: 4
-
-
 nginx_container_per_vm: 2
+
+#prometheus targets
+prometheus_port: 9090
+node_metrics_port: 9100
+bind9_prom_port: 9119
+mysql_prom_port: 9104
+nginx_prom_port: 9113
+influxdb_prom_port: 9424
+haproxy_prom_port: 9101
+keepalive_prom_port: 9165
 
 dns_a_records:
   backup: 192.168.42.132

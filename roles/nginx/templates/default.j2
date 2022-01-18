@@ -10,27 +10,27 @@ server {
 	}
 
 	location /haproxy-metrics {
-	    proxy_pass http://localhost:9101/metrics;
+	    proxy_pass http://localhost:{{ haproxy_prom_port }}/metrics;
 	}
 
 	location /keepalived-metrics {
-	    proxy_pass http://localhost:9165/metrics;
+	    proxy_pass http://localhost:{{ keepalive_prom_port }}/metrics;
 	}
 
 	{%- endif %}
 
 	location /node-metrics {
-	    proxy_pass http://localhost:9100/metrics;
+	    proxy_pass http://localhost:{{ node_metrics_port }}/metrics;
 	}
 
 	location /nginx-metrics {
-	    proxy_pass http://localhost:9113/metrics;
+	    proxy_pass http://localhost:{{ nginx_prom_port }}/metrics;
 	}
 
 	{%- if inventory_hostname in groups['prometheus'] %}
 
 	location /prometheus {
-	    proxy_pass http://localhost:9090;
+	    proxy_pass http://localhost:{{ prometheus_port }};
 	}
 
     {%- endif %}
@@ -46,7 +46,7 @@ server {
     {%- if inventory_hostname in groups['db_servers'] %}
 
 	location /mysql-metrics {
-	    proxy_pass http://localhost:9104/metrics;
+	    proxy_pass http://localhost:{{ mysql_prom_port }}/metrics;
 	}
 
     {%- endif %}
@@ -54,7 +54,7 @@ server {
     {%- if inventory_hostname in groups['dns_servers'] %}
 
 	location /bind-metrics {
-	    proxy_pass http://localhost:9119/metrics;
+	    proxy_pass http://localhost:{{ bind9_prom_port }}/metrics;
 	}
 
     {%- endif %}
@@ -62,7 +62,7 @@ server {
     {%- if inventory_hostname in groups['influxdb'] %}
 
 	location /influxdb-metrics {
-	    proxy_pass http://localhost:9424/metrics;
+	    proxy_pass http://localhost:{{ influxdb_prom_port }}/metrics;
 	}
 
     {%- endif %}

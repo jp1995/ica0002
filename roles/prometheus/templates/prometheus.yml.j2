@@ -8,53 +8,53 @@ scrape_configs:
     scrape_timeout: 5s
     metrics_path: /prometheus/metrics
     static_configs:
-      - targets: ['localhost:9090']
+      - targets: ['localhost:{{ prometheus_port }}']
 
   - job_name: linux
     static_configs:
       - targets:
     {% for vm in groups['all'] %}
-    - {{ vm }}:9100
+    - {{ vm }}:{{ node_metrics_port }}
     {% endfor %}
 
   - job_name: bind9
     static_configs:
       - targets:
     {% for vm in groups['dns_servers'] %}
-    - {{ vm }}:9119
+    - {{ vm }}:{{ bind9_prom_port }}
     {% endfor %}
 
   - job_name: mysql
     static_configs:
       - targets:
     {% for vm in groups['db_servers'] %}
-    - {{ vm }}:9104
+    - {{ vm }}:{{ mysql_prom_port }}
     {% endfor %}
 
   - job_name: nginx
     static_configs:
       - targets:
     {% for vm in groups['all'] %}
-    - {{ vm }}:9113
+    - {{ vm }}:{{ nginx_prom_port }}
     {% endfor %}
 
   - job_name: influxdb
     static_configs:
       - targets:
     {% for vm in groups['influxdb'] %}
-    - {{ vm }}:9424
+    - {{ vm }}:{{ influxdb_prom_port }}
     {% endfor %}
 
   - job_name: haproxy
     static_configs:
       - targets:
     {% for vm in groups['web_servers'] %}
-    - {{ vm }}:9101
+    - {{ vm }}:{{ haproxy_prom_port }}
     {% endfor %}
 
   - job_name: keepalived
     static_configs:
       - targets:
     {% for vm in groups['web_servers'] %}
-    - {{ vm }}:9165
+    - {{ vm }}:{{ keepalive_prom_port }}
     {% endfor %}
