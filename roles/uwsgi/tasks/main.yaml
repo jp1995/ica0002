@@ -15,6 +15,7 @@
   ansible.builtin.template:
     src: ../templates/agama.ini
     dest: /etc/uwsgi/apps-enabled/agama.ini
+  no_log: true
   notify:
   - Restart uwsgi
   tags: mx
